@@ -10,7 +10,6 @@
     "insertPragma": false,
     "jsxSingleQuote": false,
     "objectWrap": "preserve",
-    "plugins": ["prettier-plugin-tailwindcss"],
     "printWidth": 200,
     "proseWrap": "preserve",
     "quoteProps": "as-needed",
@@ -20,5 +19,14 @@
     "tabWidth": 4,
     "trailingComma": "all",
     "singleAttributePerLine": false,
-    "useTabs": false
+    "useTabs": false,
+    "plugins": ["prettier-plugin-tailwindcss"],
+    "overrides": [
+        {
+            "files": ["*.yaml", "*.yml"],
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
 }

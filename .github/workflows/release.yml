@@ -36,5 +36,5 @@ jobs:
           build-args: |
             RELEASE_NUMBER=${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-            ${{ env.IMAGE_NAME }}:latest
+            ${{ vars.IMAGE_NAME }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
+            ${{ vars.IMAGE_NAME }}:latest

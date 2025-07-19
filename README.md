@@ -5,9 +5,10 @@
 - [ ] Add ci Docker build
 - [x] Add font
 - [ ] Add logo, favicon and description
-- [ ] Add Shadcn base style
+- [x] Add Shadcn base style
 - [ ] Add `new expense` page
 - [ ] Add rest of app
+- [ ] Add Kubernetes deployment to `release` action
 
 ## Commit SemVer
 

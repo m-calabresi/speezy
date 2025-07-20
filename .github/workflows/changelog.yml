@@ -6,8 +6,6 @@ on:
 jobs:
   Create-Release:
     name: Create Release
-  Create-Release:
-    name: Create Release
     runs-on: ubuntu-latest
     permissions:
       contents: write

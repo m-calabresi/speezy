@@ -30,22 +30,21 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-          name: ${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
+          name: Release ${{ steps.changelog.outputs.release-id }}
           body: |
-            # 🚀 Release Notes
+            ## 📦 Release `${{ steps.get_release_number.outputs.RELEASE_NUMBER }}`
 
             🔖 **Tag:** [${{ steps.get_release_number.outputs.RELEASE_NUMBER }}](https://github.com/${{ github.repository }}/tree/${{ steps.get_release_number.outputs.RELEASE_NUMBER }})
 
-            🐳 **Docker Image:** [${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}](https://ghcr.io/${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }})
-            ```bash
-            # get latest image
-            docker pull ghcr.io/${{ github.repository }}:latest
+            🐳 **Docker Image:**  
+            `ghcr.io/${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}`
 
-            # get this specific image
+            ▶️ **Pull the image:**
+            ```bash
             docker pull ghcr.io/${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
             ```
 
-            # 📝 **Changelog**
+            📝 **Changelog:**
             ${{ steps.changelog.outputs.changelog }}
 
       - name: Create GitHub Release

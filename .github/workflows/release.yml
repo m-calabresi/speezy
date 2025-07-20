@@ -59,3 +59,25 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           default-commit-type: Other Changes
           release-name: ${{ steps.release.outputs.release-name }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.release.outputs.release-name }}
+          name: ${{ steps.release.outputs.release-name }}
+          body: |
+            # 🚀 Release Notes
+
+            🔖 **Tag:** [${{ steps.release.outputs.release-name }}](https://github.com/${{ github.repository }}/tree/${{ steps.release.outputs.release-name }})
+
+            🐳 **Docker Image:** [${{ github.repository }}:${{ steps.release.outputs.release-name }}](https://ghcr.io/${{ github.repository }}:${{ steps.release.outputs.release-name }})
+            ```bash
+            # get latest image
+            docker pull ghcr.io/${{ github.repository }}:latest
+
+            # get this specific image
+            docker pull ghcr.io/${{ github.repository }}:${{ steps.release.outputs.release-name }}
+            ```
+
+            # 📝 Changelog
+            ${{ steps.changelog.outputs.changelog }}

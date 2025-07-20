@@ -22,7 +22,6 @@
 - Changes relevant to the API or UI:
     - `fix:` a commit of type `fix` patches a bug in your codebase
     - `feat:` a commit of type `feat` introduces a new feature to the codebase
-
 - `refactor:` a commit of type `refactor` rewrites or restructures code without altering API or UI behavior
     - `perf:` a commit of type `perf` is a special type of `refactor` commit that specifically improves performance
 - `build:` a commit of type `build` affects build-related components such as build tools, dependencies and project version

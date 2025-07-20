@@ -16,18 +16,18 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Log in to GitHub Container Registry
+      - name: Log In to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get release number
-        id: get_release_number
-        run: echo "RELEASE_NUMBER=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      - name: Get Release Name
+        id: release
+        run: echo "release-name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
-      - name: Build and push Docker image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -35,19 +35,27 @@ jobs:
           push: true
           platforms: linux/amd64
           build-args: |
-            RELEASE_NUMBER=${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
+            release-name=${{ steps.release.outputs.release-name }}
           tags: |
-            ${{ vars.IMAGE_NAME }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
+            ${{ vars.IMAGE_NAME }}:${{ steps.release.outputs.release-name }}
             ${{ vars.IMAGE_NAME }}:latest
 
-      - name: Set new Preview Release number
+      - name: Set New Preview Release Name
         uses: dkershner6/vercel-set-env-action@v3
         with:
           token: ${{ secrets.VERCEL_TOKEN }}
           teamId: ${{ secrets.VERCEL_ORG_ID }}
           projectName: ${{ secrets.VERCEL_PROJECT_NAME }}
-          envVariableKeys: RELEASE_NUMBER
+          envVariableKeys: RELEASE_NAME
         env:
-          RELEASE_NUMBER: ${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-          TARGET_RELEASE_NUMBER: production # comma delimited, one of [production, preview, development]
-          TYPE_RELEASE_NUMBER: plain # one of [plain, encrypted]
+          RELEASE_NAME: ${{ steps.release.outputs.release-name }}
+          TARGET_RELEASE_NAME: production # comma delimited, one of [production, preview, development]
+          TYPE_RELEASE_NAME: plain # one of [plain, encrypted]
+
+      - name: Generate Changelog
+        id: changelog
+        uses: ardalanamini/auto-changelog@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          default-commit-type: Other Changes
+          release-name: ${{ steps.release.outputs.release-name }}

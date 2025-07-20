@@ -1,0 +1,21 @@
+# dependencies
+node_modules
+
+# next.js
+.next
+
+# vercel
+.vercel
+vercel.json
+
+# typescript
+next.env.d.ts
+
+# git
+.gitignore
+
+# github
+.github
+
+#vscode
+.vscode

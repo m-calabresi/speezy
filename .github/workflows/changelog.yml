@@ -4,10 +4,8 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*"
 jobs:
-  Create-Release:
-    name: Create Release
-  Create-Release:
-    name: Create Release
+  Create-Changelog:
+    name: Create Changelog
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -25,47 +23,3 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           default-commit-type: Other Changes
           release-name: ${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-          name: ${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-          body: |
-            # 🚀 Release Notes
-
-            🔖 **Tag:** [${{ steps.get_release_number.outputs.RELEASE_NUMBER }}](https://github.com/${{ github.repository }}/tree/${{ steps.get_release_number.outputs.RELEASE_NUMBER }})
-
-            🐳 **Docker Image:** [${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}](https://ghcr.io/${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }})
-            ```bash
-            # get latest image
-            docker pull ghcr.io/${{ github.repository }}:latest
-
-            # get this specific image
-            docker pull ghcr.io/${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-            ```
-
-            # 📝 **Changelog**
-            ${{ steps.changelog.outputs.changelog }}
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-          name: ${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-          body: |
-            🔖 **Based on Tag:** [${{ steps.get_release_number.outputs.RELEASE_NUMBER }}](https://github.com/${{ github.repository }}/tree/${{ steps.get_release_number.outputs.RELEASE_NUMBER }})
-
-            🔖 **Tag:** [${{ steps.get_release_number.outputs.RELEASE_NUMBER }}](https://github.com/${{ github.repository }}/tree/${{ steps.get_release_number.outputs.RELEASE_NUMBER }})
-
-            🐳 **Docker Image:** [${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}](https://ghcr.io/${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }})
-            ```bash
-            # get latest image
-            docker pull ghcr.io/${{ github.repository }}:latest
-
-            # get this specific image
-            docker pull ghcr.io/${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-            ```
-
-            # 📝 **Changelog**
-            ${{ steps.changelog.outputs.changelog }}

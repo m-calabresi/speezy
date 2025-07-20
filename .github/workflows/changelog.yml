@@ -28,19 +28,20 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
-          name: Release ${{ steps.changelog.outputs.release-id }}
+          name: ${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
           body: |
-            ## 📦 Release `${{ steps.get_release_number.outputs.RELEASE_NUMBER }}`
+            🔖 **Based on Tag:** [${{ steps.get_release_number.outputs.RELEASE_NUMBER }}](https://github.com/${{ github.repository }}/tree/${{ steps.get_release_number.outputs.RELEASE_NUMBER }})
 
-            🔖 **Tag:** [${{ steps.get_release_number.outputs.RELEASE_NUMBER }}](https://github.com/${{ github.repository }}/tree/${{ steps.get_release_number.outputs.RELEASE_NUMBER }})
+            🐳 **Docker Image:** [${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}](`ghcr.io/${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}`)
 
-            🐳 **Docker Image:**  
-            `ghcr.io/${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}`
-
-            ▶️ **Pull the image:**
+            ▶️ **Pull instructions:**
             ```bash
+            # latest image
+            docker pull ghcr.io/${{ github.repository }}:latest
+
+            # this specific image
             docker pull ghcr.io/${{ github.repository }}:${{ steps.get_release_number.outputs.RELEASE_NUMBER }}
             ```
 
-            📝 **Changelog:**
+            ## 📝 **Changelog:**
             ${{ steps.changelog.outputs.changelog }}

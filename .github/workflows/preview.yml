@@ -6,7 +6,7 @@ on:
   # push:
   #   branches:
   #     - main
-  # # also run after production release to use the correct `RELEASE_NUMBER`
+  # # also run after production release to use the correct `RELEASE_NAME`
   # workflow_run:
   #   workflows: ["Production Release"]
   #   types:

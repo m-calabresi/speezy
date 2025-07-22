@@ -2,10 +2,11 @@
 
 ## TODO:
 
-- [ ] Add ci Docker build
+- [x] Add CI Docker build
 - [x] Add font
 - [ ] Add logo, favicon and description
 - [x] Add Shadcn base style
+- [ ] Add custom colors
 - [ ] Add `new expense` page
 - [ ] Add rest of app
 - [ ] Add Kubernetes deployment to `release` action

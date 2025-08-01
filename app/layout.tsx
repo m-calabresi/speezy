@@ -1,3 +1,4 @@
+import Navigation from "@/components/navigation";
 import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Poppins } from "next/font/google";
@@ -27,9 +28,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${poppins.variable} ${bricolageGrotesque.variable} font-sans`}>
+            <body className={`${poppins.variable} ${bricolageGrotesque.variable} h-screen overflow-hidden font-sans`}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                    {children}
+                    <div className="scrollbar-hidden relative h-full overflow-auto">
+                        <main className="mb-20">{children}</main>
+                    </div>
+                    <Navigation />
                 </ThemeProvider>
             </body>
         </html>

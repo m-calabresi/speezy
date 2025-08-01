@@ -3,6 +3,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@utility scrollbar-hidden {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    & {
+        scrollbar-width: none;
+    }
+    -ms-overflow-style: none;
+}
+
 @theme inline {
     --font-poppins: var(--font-poppins-sans);
     --font-bricolage-grotesque: var(--font-bricolage-grotesque-serif);

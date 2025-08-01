@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Inter } from "next/font/google";
+import { Bricolage_Grotesque, Poppins } from "next/font/google";
 import "./globals.css";
 
-const interSans = Inter({
-    variable: "--font-inter-sans",
+const poppins = Poppins({
+    variable: "--font-poppins-sans",
     subsets: ["latin"],
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-const bricolageGrotesqueSans = Bricolage_Grotesque({
-    variable: "--font-bricolage-grotesque-sans",
+const bricolageGrotesque = Bricolage_Grotesque({
+    variable: "--font-bricolage-grotesque-serif",
     subsets: ["latin"],
 });
 
@@ -24,7 +25,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${interSans.variable} ${bricolageGrotesqueSans.variable} antialiased`}>{children}</body>
+            <body className={`${poppins.variable} ${bricolageGrotesque.variable} font-sans`}>
+                {children}
         </html>
     );
 }

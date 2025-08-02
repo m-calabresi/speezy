@@ -20,8 +20,12 @@ export default function Navigation() {
                 {navItems.map(({ id, url, label, Icon }) => {
                     const isActive = pathName === url;
                     return (
-                        <li key={id} className={cn("text-secondary-foreground group px-5", isActive && "text-muted-foreground")}>
-                            <Link href={url} className="flex min-w-[60px] flex-col items-center justify-center">
+                        <li
+                            key={id}
+                            className={cn("text-secondary-foreground group px-5", isActive && "text-muted-foreground")}>
+                            <Link
+                                href={url}
+                                className="flex min-w-[60px] flex-col items-center justify-center">
                                 <div
                                     className={cn(
                                         "group-hover:bg-secondary mb-2 flex w-16 items-center justify-center rounded-full py-1.5 transition-colors duration-100 ease-in-out",

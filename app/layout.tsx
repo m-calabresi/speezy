@@ -1,3 +1,4 @@
+import Header from "@/components/header";
 import Navigation from "@/components/navigation";
 import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata } from "next";
@@ -30,9 +31,10 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning>
             <body className={`${poppins.variable} ${bricolageGrotesque.variable} h-screen overflow-hidden font-sans`}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                    <div className="scrollbar-hidden relative h-full overflow-auto">
-                        <main className="mb-20">{children}</main>
-                    </div>
+                    <main className="scrollbar-hidden relative mx-auto h-full max-w-md overflow-auto px-5">
+                        <Header />
+                        <main className="mb-24">{children}</main>
+                    </main>
                     <Navigation />
                 </ThemeProvider>
             </body>

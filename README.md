@@ -2,13 +2,32 @@
 
 ## TODO:
 
-- [ ] Add ci Docker build
-- [x] Add font
-- [ ] Add logo, favicon and description
-- [x] Add Shadcn base style
-- [ ] Add `new expense` page
-- [ ] Add rest of app
-- [ ] Add Kubernetes deployment to `release` action
+- Style
+    - [x] Add font
+    - [-] Add logo, favicon and description
+    - [x] Add Shadcn base style
+    - [x] Add custom colors
+- Behavior
+    - [ ] Add view transitions
+- Features
+    - [ ] Add `new expense` page
+    - [ ] Add rest of app
+- Auth
+    - [ ] Implement app auth with `auth.js`
+    - [ ] Deploy & configure Keycloak
+- Backend
+    - [ ] Design server actions
+    - [ ] Implement DB connectivity
+- Database
+    - [ ] Design expenses representation
+- CI
+    - [x] Add CI Docker build
+    - [ ] Inject app version into `package.json` in `preview` and `release` pipelines
+    - [ ] Add [labels to container image](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#labelling-container-images)
+- Deploy
+    - [ ] Add Kubernetes deployment to `release` action
+    - [ ] Create Kubernetes `speezy-services` repo
+    - [ ] Create local cluster with Postgres, Keycloak and Speezy
 
 ## Commit SemVer
 

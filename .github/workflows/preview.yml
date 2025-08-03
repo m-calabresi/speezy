@@ -6,6 +6,15 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - ".github/**"
+      - "scripts/**"
+      - "**/*.md"
+      - "Dockerfile"
+      - ".dockerignore"
+      - ".gitignore"
+      - "prettierrc"
+      - "eslint.config.*"
   # also run after production release to use the correct `RELEASE_NAME`
   workflow_run:
     workflows: ["Production Release"]

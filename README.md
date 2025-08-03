@@ -31,6 +31,8 @@
     - [ ] Add Kubernetes deployment to `release` action
     - [ ] Create Kubernetes `speezy-services` repo
     - [ ] Create local cluster with Postgres, Keycloak and Speezy
+- Chore
+    - [ ] Make repo public
 
 ## Commit SemVer
 

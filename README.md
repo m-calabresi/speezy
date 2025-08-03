@@ -11,6 +11,7 @@
     - [ ] Add view transitions
 - Features
     - [ ] Add `new expense` page
+    - [ ] Add `not found` page
     - [ ] Add rest of app
 - Auth
     - [ ] Implement app auth with `auth.js`

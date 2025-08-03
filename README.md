@@ -4,7 +4,7 @@
 
 - Style
     - [x] Add font
-    - [-] Add logo, favicon and description
+    - [ ] Add logo, favicon and description
     - [x] Add Shadcn base style
     - [x] Add custom colors
 - Behavior

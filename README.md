@@ -2,15 +2,29 @@
 
 ## TODO:
 
-- [x] Add CI Docker build
-- [x] Add font
-- [-] Add logo, favicon and description
-- [x] Add Shadcn base style
-- [x] Add custom colors
-- [ ] Add view transitions
-- [ ] Add `new expense` page
-- [ ] Add rest of app
-- [ ] Add Kubernetes deployment to `release` action
+- Style
+    - [x] Add font
+    - [-] Add logo, favicon and description
+    - [x] Add Shadcn base style
+    - [x] Add custom colors
+- Behavior
+    - [ ] Add view transitions
+- Features
+    - [ ] Add `new expense` page
+    - [ ] Add rest of app
+- Auth
+    - [ ] Implement app auth with `auth.js`
+    - [ ] Deploy & configure Keycloak
+- Backend
+    - [ ] Design server actions
+    - [ ] Implement DB connectivity
+- Database
+    - [ ] Design expenses representation
+- CI
+    - [x] Add CI Docker build
+    - [ ] Inject app version into `package.json` in `preview` and `release` pipelines
+- Deploy
+    - [ ] Add Kubernetes deployment to `release` action
 
 ## Commit SemVer
 

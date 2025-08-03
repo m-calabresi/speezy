@@ -2,6 +2,8 @@
 
 ## TODO:
 
+- Documentation:
+    - [ ] Add LICENSE.md
 - Style
     - [x] Add font
     - [ ] Add logo, favicon and description

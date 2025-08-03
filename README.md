@@ -4,6 +4,7 @@
 
 - Documentation:
     - [ ] Add LICENSE.md
+    - [ ] Make README look nice
 - Style
     - [x] Add font
     - [ ] Add logo, favicon and description

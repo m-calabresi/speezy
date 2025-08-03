@@ -23,8 +23,11 @@
 - CI
     - [x] Add CI Docker build
     - [ ] Inject app version into `package.json` in `preview` and `release` pipelines
+    - [ ] Add [labels to container image](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#labelling-container-images)
 - Deploy
     - [ ] Add Kubernetes deployment to `release` action
+    - [ ] Create Kubernetes `speezy-services` repo
+    - [ ] Create local cluster with Postgres, Keycloak and Speezy
 
 ## Commit SemVer
 

@@ -12,6 +12,7 @@
     - [x] Add custom colors
 - Behavior
     - [ ] Add view transitions
+    - [ ] Add localization (IT, EN)
 - Features
     - [ ] Add `new expense` page
     - [ ] Add `not found` page

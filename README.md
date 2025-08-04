@@ -21,7 +21,7 @@
         - [ ] Progressively load more entries
         - [ ] Add filters
         - [ ] Add edit feature to entries
-    - [ ] add `stats` page
+    - [ ] Add `stats` page
 - Auth
     - [ ] Implement app auth with `auth.js`
     - [ ] Deploy & configure Keycloak
@@ -30,7 +30,7 @@
     - [x] Implement DB connectivity
     - [ ] Implement pagination
 - Database
-    - [ ] Design expenses representation
+    - [x] Design expenses representation
 - CI
     - [x] Add CI Docker build
     - [ ] Inject app version into `package.json` in `preview` and `release` pipelines

@@ -10,6 +10,7 @@
     - [ ] Add logo, favicon and description
     - [x] Add Shadcn base style
     - [x] Add custom colors
+    - [ ] Fix mobile navbar behavior (on scroll & on theme dropdown open)
 - Behavior
     - [ ] Add view transitions
     - [ ] Add localization (IT, EN)
@@ -24,7 +25,7 @@
     - [ ] Design server actions
     - [ ] Implement DB connectivity
 - Database
-    - [ ] Design expenses representation
+    - [x] Design expenses representation
 - CI
     - [x] Add CI Docker build
     - [ ] Inject app version into `package.json` in `preview` and `release` pipelines

@@ -3,26 +3,32 @@
 ## TODO:
 
 - Documentation:
-    - [ ] Add LICENSE.md
+    - [x] Add LICENSE.md
     - [ ] Make README look nice
 - Style
     - [x] Add font
     - [ ] Add logo, favicon and description
     - [x] Add Shadcn base style
     - [x] Add custom colors
+    - [ ] Style Keycloak pages with [Keycloakify](https://www.keycloakify.dev/)
 - Behavior
     - [ ] Add view transitions
     - [ ] Add localization (IT, EN)
 - Features
     - [ ] Add `new expense` page
     - [ ] Add `not found` page
-    - [ ] Add rest of app
+    - Add `history` page
+        - [ ] Progressively load more entries
+        - [ ] Add filters
+        - [ ] Add edit feature to entries
+    - [ ] add `stats` page
 - Auth
     - [ ] Implement app auth with `auth.js`
     - [ ] Deploy & configure Keycloak
 - Backend
     - [ ] Design server actions
-    - [ ] Implement DB connectivity
+    - [x] Implement DB connectivity
+    - [ ] Implement pagination
 - Database
     - [ ] Design expenses representation
 - CI
@@ -35,6 +41,8 @@
     - [ ] Create local cluster with Postgres, Keycloak and Speezy
 - Chore
     - [x] Make repo public
+- Bugs
+    - [ ] Fix layout shift on mobile
 
 ## Commit SemVer
 

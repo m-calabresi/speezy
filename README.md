@@ -42,7 +42,7 @@
 - Chore
     - [x] Make repo public
 - Bugs
-    - [ ] Fix layout shift on mobile
+    - [ ] Fix layout shift on mobilefor navbar (on scroll & on theme dropdown open)
 
 ## Commit SemVer
 

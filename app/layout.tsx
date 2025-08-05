@@ -28,12 +28,18 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html
+            lang="en"
+            suppressHydrationWarning>
             <body className={`${poppins.variable} ${bricolageGrotesque.variable} h-screen overflow-hidden font-sans`}>
-                <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange>
                     <main className="scrollbar-hidden relative mx-auto h-full max-w-md overflow-auto px-5">
                         <Header />
-                        <main className="mb-24">{children}</main>
+                        <section className="mb-24">{children}</section>
                     </main>
                     <Navigation />
                 </ThemeProvider>

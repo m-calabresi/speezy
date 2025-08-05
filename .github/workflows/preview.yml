@@ -15,6 +15,7 @@ on:
       - ".gitignore"
       - "prettierrc"
       - "eslint.config.*"
+      - "LICENSE*"
   # also run after production release to use the correct `RELEASE_NAME`
   workflow_run:
     workflows: ["Production Release"]

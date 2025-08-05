@@ -32,8 +32,10 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
-      - name: Disable Vercel Telemetry
-        run: vercel telemetry disable
+      - name: Disable Telemetry
+        run: |
+          vercel telemetry disable
+          npx next telemetry disable
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}

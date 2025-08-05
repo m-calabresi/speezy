@@ -1,9 +1,8 @@
 "server only";
 
+import { buildNumber } from "@/lib/release";
 import { cn } from "@/lib/utils";
 import type { HTMLAttributes } from "react";
-
-const buildNumber = process.env.RELEASE_NAME || "v0.0.0-development";
 
 export default function ReleaseInfo({ className, ...props }: HTMLAttributes<HTMLSpanElement>) {
     return (

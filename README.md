@@ -15,6 +15,7 @@
     - [ ] Add view transitions
     - [ ] Add localization (IT, EN)
 - Features
+    - [x] Add account settings
     - [ ] Add `new expense` page
     - [ ] Add `not found` page
     - Add `history` page
@@ -43,7 +44,7 @@
 - Chore
     - [x] Make repo public
 - Bugs
-    - [ ] Fix layout shift on mobilefor navbar (on scroll & on theme dropdown open)
+    - [ ] Fix layout shift on mobile for navbar (on scroll & on account modal open)
 
 ## Commit SemVer
 

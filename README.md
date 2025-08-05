@@ -15,6 +15,7 @@
     - [ ] Add view transitions
     - [ ] Add localization (IT, EN)
 - Features
+    - [ ] Add account settings
     - [ ] Add `new expense` page
     - [ ] Add `not found` page
     - Add `history` page

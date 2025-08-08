@@ -9,7 +9,7 @@ type PageProviderProps = React.ComponentProps<"section"> & { path: string };
 export function PageProvider({ path, className, children, ...props }: PageProviderProps) {
     return (
         <AuthProvider location={path}>
-            <div className="relative w-full px-5">
+            <div className="mb-safe-offset-24 relative w-full px-5">
                 <Header />
                 <main
                     className={cn("h-full w-full", className)}

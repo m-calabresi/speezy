@@ -5,6 +5,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn, formatCurrency, formatDate } from "@/lib/utils";
 import type { Transaction } from "@/types/transaction";
 import { CalendarIcon, CreditCardIcon } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Stats - speezy",
+    description: "Your transaction history at a glance.",
+    keywords: ["speezy", "history", "transactions", "expense", "tracking"],
+};
 
 function TransactionItem({ item }: { item: Transaction }) {
     const [integerAmount, decimalAmount] = formatCurrency(item.amount).split(",");

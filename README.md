@@ -7,7 +7,7 @@
     - [ ] Make README look nice
 - Style
     - [x] Add font
-    - [ ] Add logo, favicon and description
+    - [x] Add logo, favicon and description
     - [x] Add Shadcn base style
     - [x] Add custom colors
     - [ ] Style Keycloak pages with [Keycloakify](https://www.keycloakify.dev/)

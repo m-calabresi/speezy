@@ -1,9 +1,6 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import { ChartPie, History, Plus } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 const navItems = [
     { id: "add", url: "/", label: "Add", Icon: Plus },
@@ -11,11 +8,9 @@ const navItems = [
     { id: "stats", url: "/stats", label: "Stats", Icon: ChartPie },
 ];
 
-export default function Navigation() {
-    const pathName = usePathname();
-
+export default function Navigation({ pathName }: { pathName: string }) {
     return (
-        <nav className="bg-background absolute bottom-0 z-40 w-full py-3">
+        <nav className="bg-background bottom-safe-offset-0 fixed right-0 left-0 z-40 w-full py-3">
             <ul className="mx-auto flex max-w-md items-center justify-around">
                 {navItems.map(({ id, url, label, Icon }) => {
                     const isActive = pathName === url;

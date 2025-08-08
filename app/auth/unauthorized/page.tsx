@@ -63,10 +63,10 @@ export default function Unauthorized() {
 
                         <h2 className="text-foreground text-3xl leading-tight font-bold">Permission Required</h2>
 
-                        <p className="text-foreground/80 text-lg leading-relaxed">You don't have permission to access this resource.</p>
+                        <p className="text-foreground/80 text-lg leading-relaxed">You don&apos;t have permission to access this resource.</p>
 
                         <p className="text-foreground/40 text-sm leading-relaxed">
-                            This might be because your account doesn't have the required permissions, or you need to sign in with a different account.
+                            This might be because your account doesn&apos;t have the required permissions, or you need to sign in with a different account.
                         </p>
                     </div>
 

@@ -1,67 +1,43 @@
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { XIcon } from "lucide-react";
 import type React from "react";
 
-export function Modal({ children, ...props }: React.ComponentProps<typeof AlertDialog>) {
-    return <AlertDialog {...props}>{children}</AlertDialog>;
+export function Modal({ children, ...props }: React.ComponentProps<typeof Dialog>) {
+    return <Dialog {...props}>{children}</Dialog>;
 }
 
-export function ModalTrigger({ children, ...props }: React.ComponentProps<typeof AlertDialogTrigger>) {
-    return <AlertDialogTrigger {...props}>{children}</AlertDialogTrigger>;
+export function ModalTrigger({ children, ...props }: React.ComponentProps<typeof DialogTrigger>) {
+    return <DialogTrigger {...props}>{children}</DialogTrigger>;
 }
 
-export function ModalAction({ className, children, ...props }: React.ComponentProps<typeof AlertDialogAction>) {
+export function ModalClose({ className, children, ...props }: React.ComponentProps<typeof DialogClose>) {
     return (
-        <AlertDialogAction
-            variant="ghost"
+        <DialogClose
             className={cn("h-full w-full font-normal", className)}
             {...props}>
             {children}
-        </AlertDialogAction>
+        </DialogClose>
     );
 }
 
-export function ModalContent({ className, children, ...props }: React.ComponentProps<typeof AlertDialogContent>) {
+export function ModalContent({ className, children, ...props }: React.ComponentProps<typeof DialogContent>) {
     return (
-        <AlertDialogContent
+        <DialogContent
             className={cn("rounded-3xl p-0", className)}
             {...props}>
             {children}
-        </AlertDialogContent>
+        </DialogContent>
     );
 }
 
-export function ModalHeader({ className, children, ...props }: React.ComponentProps<typeof AlertDialogHeader>) {
+export function ModalHeader({ className, children, ...props }: React.ComponentProps<typeof DialogHeader>) {
     return (
-        <AlertDialogHeader
+        <DialogHeader
             className={cn("w-full", className)}
             {...props}>
-            <AlertDialogTitle className="bg-background text-foreground flex w-full items-center justify-between rounded-3xl px-6 py-4">
-                <AlertDialogCancel asChild>
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="dark:bg-background! dark:hover:bg-input! border-none shadow-none! dark:border-none">
-                        <XIcon className="text-muted-foreground size-6" />
-                    </Button>
-                </AlertDialogCancel>
-                {children}
-                <div className="w-9" /> {/* same size as button > size */}
-            </AlertDialogTitle>
-            <AlertDialogDescription className="sr-only">User profile modal</AlertDialogDescription>
-        </AlertDialogHeader>
+            <DialogTitle className="bg-background text-foreground mx-auto rounded-3xl px-6 py-4">{children}</DialogTitle>
+            <DialogDescription className="sr-only">User profile modal</DialogDescription>
+        </DialogHeader>
     );
 }
 
@@ -78,7 +54,7 @@ export function ModalTitle({ className, children, ...props }: React.ComponentPro
 export function ModalBody({ className, children, ...props }: React.ComponentProps<"div">) {
     return (
         <div
-            className={cn("mx-6 space-y-2 rounded-3xl last:mb-6", className)}
+            className={cn("mx-6 space-y-2 rounded-3xl", className)}
             {...props}>
             {children}
         </div>
@@ -105,12 +81,12 @@ export function ModalBodyOption({ className, children, ...props }: React.Compone
     );
 }
 
-export function ModalFooter({ className, children, ...props }: React.ComponentProps<typeof AlertDialogFooter>) {
+export function ModalFooter({ className, children, ...props }: React.ComponentProps<typeof DialogFooter>) {
     return (
-        <AlertDialogFooter
+        <DialogFooter
             className={cn("bg-background rounded-b-3xl px-6 pb-4", className)}
             {...props}>
             {children}
-        </AlertDialogFooter>
+        </DialogFooter>
     );
 }

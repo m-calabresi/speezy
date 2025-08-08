@@ -73,3 +73,64 @@
 - `key: some message` is a regular commit
 - `key(scope): some message` is a scoped commit
 - `key!: some message` or `key(scope)!: some message` is a breaking change commit
+
+## Running on a mobile device
+
+> **NOTE**: This guide has been tested for Windows using WSL (on Ubuntu 24.04 LTS) for development, with Next.js running the `dev` command on the default port (`3000`).
+
+1. _(Optional)_ Configure [scrcpy](https://github.com/Genymobile/scrcpy).
+
+2. Allow port `3000` on the Windows Firewall:
+    ```sh
+    # PowerShell (administrator)
+    > netsh advfirewall firewall add rule name="WSL Next.js Dev" dir=in action=allow protocol=TCP localport=3000
+    ```
+3. Ensure Windows auto-forwards network traffic to WSL:
+    - Get your Windows private IP address:
+
+        ```sh
+        # Powershell
+        > ipconfig
+        ```
+
+        Look for `Wireless LAN adapter Wi-Fi:` if you are connected via Wi-Fi, or `Ethernet adapter Ethernet:` if you are connected via LAN, then `IPv4 Address`. It will be referred to as `<WIN-IP-ADDRESS>` from now on.
+
+    - Get your WSL Private IP address
+
+        ```sh
+        # WSL bash
+        $ ip addr show eth0 | grep 'inet '
+        inet 172.xxx.yyy.zzz ...
+        ```
+
+        The address after `inet` will be your WSL IP address. It will be referred to as `<WSL-IP-ADDRESS>` from now on.
+
+    - Enable auto-forwarding:
+
+        ```sh
+        # Powershell (administrator)
+        > netsh interface portproxy add v4tov4 listenport=3000 listenaddress=<WIN-IP-ADDRESS> connectport=3000 connectaddress=<WSL-IP-ADDRESS>
+        ```
+
+        > **NOTE**: if you need to cleanup this rule, run:
+        >
+        > ```sh
+        > # Powershell (administrator)
+        > > netsh interface portproxy delete v4tov4 listenport=3000 listenaddress=<WIN-IP-ADDRESS>
+        > ```
+
+4. Update `<WIN-IP-ADDRESS>` in the project:
+    - Update the `AUTH_URL` env variable in `package.json` > `scripts` > `emu` to point to your `<WIN-IP-ADDRESS>`.
+    - Update the dev origins at `next.config.js` > `nextConfig` > `allowedDevOrigins` to include your `<WIN-IP-ADDRESS>` (see https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins).
+
+5. Run the `emu` command:
+
+    ```sh
+    # WSL (inside this repo)
+    $ npm run emu
+    ```
+
+6. Ensure your mobile device is connected to the same network as your PC.
+
+7. Open your device browser and navigate to `http://<WIN-IP-ADDRESS>:3000`
+    > **NOTE**: You can also reach this URL from the emulated device using `scrcpy`.

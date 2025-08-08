@@ -4,6 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @utility scrollbar-hidden {
+    & {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
     &::-webkit-scrollbar {
         display: none;
     }
@@ -11,11 +16,6 @@
     &::-webkit-scrollbar-button {
         display: none;
     }
-
-    & {
-        scrollbar-width: none;
-    }
-    -ms-overflow-style: none;
 }
 
 @theme inline {

@@ -2,23 +2,9 @@ import { AboutModal } from "@/components/modals/about";
 import { ThemeToggleModal } from "@/components/modals/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Modal, ModalBody, ModalBodyOption, ModalBodyOptionGroup, ModalClose, ModalContent, ModalFooter, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/modal";
+import { UserAvatar } from "@/components/user-avatar";
 import { LogOutIcon } from "lucide-react";
 import Link from "next/link";
-import type React from "react";
-
-type AvatarProfileProps = React.ComponentProps<typeof Avatar> & {
-    image: string;
-    fallback: string;
-};
-
-const AvatarProfile = ({ image, fallback, className, ...props }: AvatarProfileProps) => (
-    <Avatar
-        className={cn("h-10 w-10", className)}
-        {...props}>
-        <AvatarImage src={image} />
-        <AvatarFallback className="bg-primary text-primary-foreground font-semibold uppercase">{fallback}</AvatarFallback>
-    </Avatar>
-);
 
 export default function ProfileModal() {
     const session = {
@@ -37,8 +23,8 @@ export default function ProfileModal() {
                     variant="ghost"
                     size="icon"
                     className="h-10 w-10 rounded-full">
-                    <AvatarProfile
-                        image={session.image}
+                    <UserAvatar
+                        image={session.image || "#"}
                         fallback={userInitials}
                     />
                 </Button>
@@ -50,8 +36,8 @@ export default function ProfileModal() {
                 <ModalBody>
                     <ModalBodyOptionGroup className="py-6">
                         <ModalBodyOption className="flex items-center gap-4">
-                            <AvatarProfile
-                                image={session.image}
+                            <UserAvatar
+                                image={session.image || "#"}
                                 fallback={userInitials}
                                 className="h-14 w-14"
                             />

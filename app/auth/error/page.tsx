@@ -93,7 +93,7 @@ export default async function AuthError({ searchParams }: AuthErrorPageProps) {
                             <p className="text-foreground/80 text-base leading-relaxed break-words">{errorMessage}</p>
                         </div>
 
-                        <p className="text-foreground/40 text-sm leading-relaxed">Don't worry, signing in again usually resolves most issues. Your data is safe and secure.</p>
+                        <p className="text-foreground/40 text-sm leading-relaxed">Don&apos;t worry, signing in again usually resolves most issues. Your data is safe and secure.</p>
                     </div>
 
                     {/* Sign in button */}

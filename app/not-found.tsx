@@ -63,9 +63,9 @@ export default function NotFound() {
 
                         <h2 className="text-foreground text-3xl leading-tight font-bold">Page Not Found</h2>
 
-                        <p className="text-foreground/80 text-lg leading-relaxed">Looks like you've wandered off the beaten path. The page you're looking for doesn't exist.</p>
+                        <p className="text-foreground/80 text-lg leading-relaxed">Looks like you&apos;ve wandered off the beaten path. The page you&apos;re looking for doesn&apos;t exist.</p>
 
-                        <p className="text-foreground/40 text-sm leading-relaxed">Don't worry though, let's get you back to tracking your finances with speezy.</p>
+                        <p className="text-foreground/40 text-sm leading-relaxed">Don&apos;t worry though, let&apos;s get you back to tracking your finances with speezy.</p>
                     </div>
 
                     {/* Popular destinations */}

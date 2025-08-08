@@ -1,44 +1,21 @@
+import { auth } from "@/auth";
+import { SignOutButton } from "@/components/auth/buttons";
 import { AboutModal } from "@/components/modals/about";
 import { ThemeToggleModal } from "@/components/modals/theme-toggle";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Modal, ModalAction, ModalBody, ModalBodyOption, ModalBodyOptionGroup, ModalContent, ModalFooter, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/modal";
-import { cn } from "@/lib/utils";
+import { Modal, ModalBody, ModalBodyOption, ModalBodyOptionGroup, ModalClose, ModalContent, ModalFooter, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/modal";
+import { UserAvatar } from "@/components/user-avatar";
 import { LogOutIcon } from "lucide-react";
 import Link from "next/link";
-import type React from "react";
+import { redirect } from "next/navigation";
 
-type AvatarProfileProps = React.ComponentProps<typeof Avatar> & {
-    image: string;
-    fallback: string;
-};
+export default async function Profile() {
+    const session = await auth();
 
-const AvatarProfile = ({ image, fallback, className, ...props }: AvatarProfileProps) => (
-    <Avatar
-        className={cn("h-10 w-10", className)}
-        {...props}>
-        <AvatarImage src={image} />
-        <AvatarFallback className="bg-primary text-primary-foreground font-semibold uppercase">{fallback}</AvatarFallback>
-    </Avatar>
-);
+    if (!session) redirect("/");
+    if (session.error === "RefreshTokenError") redirect("/?error=RefreshTokenError");
 
-export default function Profile() {
-    const session = {
-        firstName: "Demo",
-        lastName: "User",
-        fullName: "Demo User",
-        email: "demo.user@emai.com",
-        image: "#",
-    };
-
-    const appInfo = {
-        name: "Speezy",
-        version: "1.2.3",
-        description: "A modern web application built with Next.js and React.",
-        developer: "Your Company Name",
-    };
-
-    const userInitials = `${session.firstName[0]}${session.lastName[0]}`;
+    const userInitials = `${session.user.given_name![0]}${session.user.family_name![0]}`;
 
     return (
         <Modal>
@@ -47,8 +24,8 @@ export default function Profile() {
                     variant="ghost"
                     size="icon"
                     className="h-10 w-10 rounded-full">
-                    <AvatarProfile
-                        image={session.image}
+                    <UserAvatar
+                        image={session.user.image || "#"}
                         fallback={userInitials}
                     />
                 </Button>
@@ -60,14 +37,14 @@ export default function Profile() {
                 <ModalBody>
                     <ModalBodyOptionGroup className="py-6">
                         <ModalBodyOption className="flex items-center gap-4">
-                            <AvatarProfile
-                                image={session.image}
+                            <UserAvatar
+                                image={session.user.image || "#"}
                                 fallback={userInitials}
                                 className="h-14 w-14"
                             />
                             <article>
-                                <h3 className="text-foreground text-lg font-medium">{session.fullName}</h3>
-                                <p className="text-muted-foreground text-sm">{session.email}</p>
+                                <h3 className="text-foreground text-lg font-medium">{session.user.name}</h3>
+                                <p className="text-muted-foreground text-sm">{session.user.email}</p>
                             </article>
                         </ModalBodyOption>
                     </ModalBodyOptionGroup>
@@ -76,10 +53,16 @@ export default function Profile() {
                             <ThemeToggleModal className="h-full w-full" />
                         </ModalBodyOption>
                         <ModalBodyOption>
-                            <ModalAction className="justify-start">
-                                <LogOutIcon className="mr-4 h-5 w-5" />
-                                <span className="flex-1 text-left">Sign Out</span>
-                            </ModalAction>
+                            <SignOutButton
+                                variant="ghost"
+                                className="h-full w-full">
+                                <ModalClose asChild>
+                                    <span className="flex h-full w-full items-center justify-start">
+                                        <LogOutIcon className="mr-4 h-5 w-5" />
+                                        <span className="text-left">Sign Out</span>
+                                    </span>
+                                </ModalClose>
+                            </SignOutButton>
                         </ModalBodyOption>
                     </ModalBodyOptionGroup>
                 </ModalBody>

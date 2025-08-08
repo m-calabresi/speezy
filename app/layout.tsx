@@ -1,5 +1,3 @@
-import Header from "@/components/header";
-import Navigation from "@/components/navigation";
 import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Poppins } from "next/font/google";
@@ -28,14 +26,20 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body className={`${poppins.variable} ${bricolageGrotesque.variable} h-screen overflow-hidden font-sans`}>
-                <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                    <main className="scrollbar-hidden relative mx-auto h-full max-w-md overflow-auto px-5">
-                        <Header />
-                        <main className="mb-24">{children}</main>
-                    </main>
-                    <Navigation />
+        <html
+            lang="en"
+            suppressHydrationWarning>
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1, viewport-fit=cover"
+            />
+            <body className={`${poppins.variable} ${bricolageGrotesque.variable} h-dvh-safe w-full overflow-hidden font-sans`}>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange>
+                    <div className="from-background to-primary/40 scrollbar-hidden flex h-full w-full flex-col overflow-auto bg-gradient-to-br">{children}</div>
                 </ThemeProvider>
             </body>
         </html>

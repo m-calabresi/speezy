@@ -3,6 +3,7 @@ import ReleaseInfo from "@/components/release-info";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn, formatCurrency, formatDate } from "@/lib/utils";
+import { PageProvider } from "@/providers/page-provider";
 import type { Transaction } from "@/types/transaction";
 import { CalendarIcon, CreditCardIcon } from "lucide-react";
 import type { Metadata } from "next";
@@ -44,10 +45,10 @@ function TransactionItem({ item }: { item: Transaction }) {
 }
 
 export default async function Home() {
-    const transactions = await getTransactions();
+    const transactions = await getTransactions(); // TODO: move this after auth
 
     return (
-        <section>
+        <PageProvider path="/history">
             <article className="h-[1000px] w-full">
                 {transactions.length !== 0 && (
                     <ul className="divide-background w-full divide-y-8">
@@ -61,6 +62,6 @@ export default async function Home() {
                 {transactions.length === 0 && <span>No Transactions</span>}
             </article>
             <ReleaseInfo />
-        </section>
+        </PageProvider>
     );
 }

@@ -11,6 +11,7 @@
     - [x] Add Shadcn base style
     - [x] Add custom colors
     - [ ] Style Keycloak pages with [Keycloakify](https://www.keycloakify.dev/)
+    - [ ] Homogenize UI look and feel between auth and app pages
 - Behavior
     - [ ] Add view transitions
     - [ ] Add localization (IT, EN)
@@ -24,7 +25,7 @@
         - [ ] Add edit feature to entries
     - [ ] Add `stats` page
 - Auth
-    - [ ] Implement app auth with `auth.js`
+    - [x] Implement app auth with `auth.js`
     - [ ] Deploy & configure Keycloak
 - Backend
     - [ ] Design server actions

@@ -1,3 +1,5 @@
+import { auth } from "@/auth";
+import { SignOutButton } from "@/components/auth/buttons";
 import { AboutModal } from "@/components/modals/about";
 import { ThemeToggleModal } from "@/components/modals/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -5,16 +7,15 @@ import { Modal, ModalBody, ModalBodyOption, ModalBodyOptionGroup, ModalClose, Mo
 import { UserAvatar } from "@/components/user-avatar";
 import { LogOutIcon } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default function ProfileModal() {
-    const session = {
-        firstName: "Demo",
-        lastName: "User",
-        fullName: "Demo User",
-        email: "demo.user@emai.com",
-        image: "#",
-    };
-    const userInitials = `${session.firstName[0]}${session.lastName[0]}`;
+export default async function Profile() {
+    const session = await auth();
+
+    if (!session) redirect("/");
+    if (session.error === "RefreshTokenError") redirect("/?error=RefreshTokenError");
+
+    const userInitials = `${session.user.given_name![0]}${session.user.family_name![0]}`;
 
     return (
         <Modal>
@@ -24,7 +25,7 @@ export default function ProfileModal() {
                     size="icon"
                     className="h-10 w-10 rounded-full">
                     <UserAvatar
-                        image={session.image || "#"}
+                        image={session.user.image || "#"}
                         fallback={userInitials}
                     />
                 </Button>
@@ -37,13 +38,13 @@ export default function ProfileModal() {
                     <ModalBodyOptionGroup className="py-6">
                         <ModalBodyOption className="flex items-center gap-4">
                             <UserAvatar
-                                image={session.image || "#"}
+                                image={session.user.image || "#"}
                                 fallback={userInitials}
                                 className="h-14 w-14"
                             />
                             <article>
-                                <h3 className="text-foreground text-lg font-medium">{session.fullName}</h3>
-                                <p className="text-muted-foreground text-sm">{session.email}</p>
+                                <h3 className="text-foreground text-lg font-medium">{session.user.name}</h3>
+                                <p className="text-muted-foreground text-sm">{session.user.email}</p>
                             </article>
                         </ModalBodyOption>
                     </ModalBodyOptionGroup>
@@ -52,12 +53,16 @@ export default function ProfileModal() {
                             <ThemeToggleModal className="h-full w-full" />
                         </ModalBodyOption>
                         <ModalBodyOption>
-                            <ModalClose asChild>
-                                <span className="flex h-full w-full items-center justify-start">
-                                    <LogOutIcon className="mr-4 h-5 w-5" />
-                                    <span className="text-left">Sign Out</span>
-                                </span>
-                            </ModalClose>
+                            <SignOutButton
+                                variant="ghost"
+                                className="h-full w-full">
+                                <ModalClose asChild>
+                                    <span className="flex h-full w-full items-center justify-start">
+                                        <LogOutIcon className="mr-4 h-5 w-5" />
+                                        <span className="text-left">Sign Out</span>
+                                    </span>
+                                </ModalClose>
+                            </SignOutButton>
                         </ModalBodyOption>
                     </ModalBodyOptionGroup>
                 </ModalBody>

@@ -1,5 +1,3 @@
-import Header from "@/components/header";
-import Navigation from "@/components/navigation";
 import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Poppins } from "next/font/google";
@@ -38,10 +36,8 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange>
                     <main className="scrollbar-hidden relative mx-auto h-full max-w-md overflow-auto px-5">
-                        <Header />
                         <section className="mb-24">{children}</section>
                     </main>
-                    <Navigation />
                 </ThemeProvider>
             </body>
         </html>

@@ -1,9 +1,7 @@
 import { AboutModal } from "@/components/modals/about";
 import { ThemeToggleModal } from "@/components/modals/theme-toggle";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Modal, ModalAction, ModalBody, ModalBodyOption, ModalBodyOptionGroup, ModalContent, ModalFooter, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/modal";
-import { cn } from "@/lib/utils";
+import { Modal, ModalBody, ModalBodyOption, ModalBodyOptionGroup, ModalClose, ModalContent, ModalFooter, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/modal";
 import { LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
@@ -30,14 +28,6 @@ export default function Profile() {
         email: "demo.user@emai.com",
         image: "#",
     };
-
-    const appInfo = {
-        name: "Speezy",
-        version: "1.2.3",
-        description: "A modern web application built with Next.js and React.",
-        developer: "Your Company Name",
-    };
-
     const userInitials = `${session.firstName[0]}${session.lastName[0]}`;
 
     return (
@@ -76,10 +66,12 @@ export default function Profile() {
                             <ThemeToggleModal className="h-full w-full" />
                         </ModalBodyOption>
                         <ModalBodyOption>
-                            <ModalAction className="justify-start">
+                                <ModalClose asChild>
+                                    <span className="flex h-full w-full items-center justify-start">
                                 <LogOutIcon className="mr-4 h-5 w-5" />
-                                <span className="flex-1 text-left">Sign Out</span>
-                            </ModalAction>
+                                        <span className="text-left">Sign Out</span>
+                                    </span>
+                                </ModalClose>
                         </ModalBodyOption>
                     </ModalBodyOptionGroup>
                 </ModalBody>

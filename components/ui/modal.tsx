@@ -26,7 +26,7 @@ export function ModalAction({ className, children, ...props }: React.ComponentPr
     return (
         <AlertDialogAction
             variant="ghost"
-            className="h-full w-full font-normal"
+            className={cn("h-full w-full font-normal", className)}
             {...props}>
             {children}
         </AlertDialogAction>

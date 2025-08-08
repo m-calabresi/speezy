@@ -10,7 +10,7 @@ const navItems = [
 
 export default function Navigation({ pathName }: { pathName: string }) {
     return (
-        <nav className="bg-background bottom-safe-offset-0 fixed right-0 left-0 z-40 w-full py-3">
+        <nav className="bg-background absolute right-0 left-0 z-40 w-full py-3">
             <ul className="mx-auto flex max-w-md items-center justify-around">
                 {navItems.map(({ id, url, label, Icon }) => {
                     const isActive = pathName === url;

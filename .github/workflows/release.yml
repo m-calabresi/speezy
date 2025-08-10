@@ -12,6 +12,22 @@ jobs:
       packages: write
 
     steps:
+      - name: Install Dependencies
+        run: sudo apt update && sudo apt install -y jq
+
+      - name: Set package.json Version
+        run: |
+          echo "Setting version to ${{ steps.release.outputs.release-name }}"
+          jq --arg v "${{ steps.release.outputs.release-name }}" '.version = $v' package.json > tmp.package.json && mv tmp.package.json package.json
+
+      - name: Commit Updated package.json
+        run: |
+          git config user.name ${{ vars.GH_ACTION_USER_NAME }}
+          git config user.email ${{ vars.GH_ACTION_USER_EMAIL }}
+          git add package.json
+          git commit -m "chore(release): set package.json version to ${{ steps.release.outputs.release-name }}"
+          git push
+
       - name: Checkout source code
         uses: actions/checkout@v4
 
@@ -50,22 +66,6 @@ jobs:
           RELEASE_NAME: ${{ steps.release.outputs.release-name }}
           TARGET_RELEASE_NAME: production # comma delimited, one of [production, preview, development]
           TYPE_RELEASE_NAME: plain # one of [plain, encrypted]
-
-      - name: Install Dependencies
-        run: sudo apt update && sudo apt install -y jq
-
-      - name: Set package.json version
-        run: |
-          echo "Setting version to ${{ steps.release.outputs.release-name }}"
-          jq --arg v "${{ steps.release.outputs.release-name }}" '.version = $v' package.json > tmp.package.json && mv tmp.package.json package.json
-
-      - name: Commit Updated package.json
-        run: |
-          git config user.name ${{ vars.GH_ACTION_USER_NAME }}
-          git config user.email ${{ vars.GH_ACTION_USER_EMAIL }}
-          git add package.json
-          git commit -m "chore(release): set package.json version to ${{ steps.release.outputs.release-name }}"
-          git push
 
       - name: Generate Changelog
         id: changelog

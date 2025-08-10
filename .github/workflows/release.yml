@@ -75,11 +75,21 @@ jobs:
           default-commit-type: Other Changes
           release-name: ${{ steps.release.outputs.release-name }}
 
+      - name: Determine Prerelease Flag
+        id: prerelease
+        run: |
+          if [[ ${{ steps.release.outputs.release-name }} =~ (alpha|beta|rc|next|canary) ]]; then
+            echo "is-prerelease=true" >> $GITHUB_OUTPUT
+          else
+            echo "is-prerelease=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.release.outputs.release-name }}
           name: ${{ steps.release.outputs.release-name }}
+          prerelease: ${{ steps.prerelease.outputs.is-prerelease }}
           body: |
             # 🚀 Release Notes
 

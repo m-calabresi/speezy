@@ -12,6 +12,7 @@
     - [x] Add custom colors
     - [ ] Style Keycloak pages with [Keycloakify](https://www.keycloakify.dev/)
     - [ ] Homogenize UI look and feel between auth and app pages
+    - [ ] Improve auth pages light theme
 - Behavior
     - [ ] Add view transitions
     - [ ] Add localization (IT, EN)

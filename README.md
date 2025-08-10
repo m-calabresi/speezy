@@ -46,7 +46,7 @@
 - Chore
     - [x] Make repo public
 - Bugs
-    - [ ] Fix layout shift on mobile for navbar (on scroll & on account modal open)
+    - [x] Fix layout shift on mobile for navbar (on scroll & on account modal open)
 
 ## Commit SemVer
 

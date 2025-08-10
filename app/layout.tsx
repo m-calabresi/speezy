@@ -29,10 +29,16 @@ export default function RootLayout({
         <html
             lang="en"
             suppressHydrationWarning>
-            <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1, viewport-fit=cover"
-            />
+            <head>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, viewport-fit=cover"
+                />
+                <meta
+                    name="apple-mobile-web-app-title"
+                    content="Speezy"
+                />
+            </head>
             <body className={`${poppins.variable} ${bricolageGrotesque.variable} h-dvh-safe w-full overflow-hidden font-sans`}>
                 <ThemeProvider
                     attribute="class"

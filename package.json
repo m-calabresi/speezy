@@ -1,6 +1,6 @@
 {
   "name": "speezy",
-  "version": "refs/heads/main",
+  "version": "v0.0.1-alpha.2",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",

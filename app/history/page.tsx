@@ -14,6 +14,8 @@ export const metadata: Metadata = {
     keywords: ["speezy", "history", "transactions", "expense", "tracking"],
 };
 
+export const dynamic = "force-dynamic"; // prevents caching of `getTransactions()`. TODO: make route actually dynamic
+
 function TransactionItem({ item }: { item: Transaction }) {
     const [integerAmount, decimalAmount] = formatCurrency(item.amount).split(",");
     const isExpense = item.amount < 0;

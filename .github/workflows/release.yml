@@ -46,8 +46,6 @@ jobs:
           file: Dockerfile
           push: true
           platforms: linux/amd64
-          build-args: |
-            release-name=${{ steps.release.outputs.release-name }}
           tags: |
             ${{ vars.DOCKER_PRODUCTION_IMAGE_NAME }}:${{ steps.release.outputs.release-name }}
             ${{ vars.DOCKER_PRODUCTION_IMAGE_NAME }}:latest

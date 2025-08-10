@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     keywords: ["speezy", "status", "statistics", "expense", "tracking"],
 };
 
-export default function Home() {
+export default function Stats() {
     return (
         <PageProvider path="/stats">
             <ComingSoon />

@@ -44,7 +44,7 @@ function TransactionItem({ item }: { item: Transaction }) {
     );
 }
 
-export default async function Home() {
+export default async function History() {
     const transactions = await getTransactions(); // TODO: move this after auth
 
     return (

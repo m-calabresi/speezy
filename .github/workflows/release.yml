@@ -36,8 +36,8 @@ jobs:
           build-args: |
             release-name=${{ steps.release.outputs.release-name }}
           tags: |
-            ${{ vars.IMAGE_NAME }}:${{ steps.release.outputs.release-name }}
-            ${{ vars.IMAGE_NAME }}:latest
+            ${{ vars.DOCKER_PRODUCTION_IMAGE_NAME }}:${{ steps.release.outputs.release-name }}
+            ${{ vars.DOCKER_PRODUCTION_IMAGE_NAME }}:latest
 
       - name: Set New Preview Release Name
         uses: dkershner6/vercel-set-env-action@v3
@@ -50,6 +50,22 @@ jobs:
           RELEASE_NAME: ${{ steps.release.outputs.release-name }}
           TARGET_RELEASE_NAME: production # comma delimited, one of [production, preview, development]
           TYPE_RELEASE_NAME: plain # one of [plain, encrypted]
+
+      - name: Install Dependencies
+        run: sudo apt update && sudo apt install -y jq
+
+      - name: Set package.json version
+        run: |
+          echo "Setting version to ${{ steps.release.outputs.release-name }}"
+          jq --arg v "${{ steps.release.outputs.release-name }}" '.version = $v' package.json > tmp.package.json && mv tmp.package.json package.json
+
+      - name: Commit Updated package.json
+        run: |
+          git config user.name ${{ vars.GH_ACTION_USER_NAME }}
+          git config user.email ${{ vars.GH_ACTION_USER_EMAIL }}
+          git add package.json
+          git commit -m "chore(release): set package.json version to ${{ steps.release.outputs.release-name }}"
+          git push
 
       - name: Generate Changelog
         id: changelog

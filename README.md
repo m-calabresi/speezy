@@ -19,7 +19,7 @@
 - Features
     - [x] Add account settings
     - [ ] Add `new expense` page
-    - [ ] Add `not found` page
+    - [x] Add `not found` page
     - Add `history` page
         - [ ] Progressively load more entries
         - [ ] Add filters

@@ -17,5 +17,5 @@ next.env.d.ts
 # github
 .github
 
-#vscode
+# vscode
 .vscode

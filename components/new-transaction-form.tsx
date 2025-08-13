@@ -7,9 +7,10 @@ import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Textarea } from "@/components/ui/textarea";
 import { cn, formatCurrency, formatDate } from "@/lib/utils";
 
 const FormSchema = z.object({
@@ -27,6 +28,7 @@ const FormSchema = z.object({
             error: "Inserisci un importo valido e positivo.",
         },
     ),
+    description: z.string().min(1, { error: "Inserisci una descrizione." }).max(1000, { error: "La descrizione non deve superare i 100 caratteri." }),
 });
 
 export function NewTransactionForm() {
@@ -35,6 +37,7 @@ export function NewTransactionForm() {
         defaultValues: {
             transactionDate: new Date(),
             amount: "",
+            description: "",
         },
     });
 
@@ -132,6 +135,24 @@ export function NewTransactionForm() {
                                 </div>
                             </FormControl>
 
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Descrizione</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    placeholder="Descrivi la transazione"
+                                    className="resize-none"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormDescription>{field.value.length}/100 caratteri</FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}

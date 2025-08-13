@@ -12,11 +12,11 @@ export const formatCurrency = (currency: number) =>
         signDisplay: "always",
     }).format(currency);
 
-export const formatDate = (date: Date) => {
+export const formatDate = (date: Date, dynamic: boolean = true) => {
     const isCurrentYear = date.getFullYear() === new Date().getFullYear();
     return date.toLocaleDateString("it-IT", {
         day: "numeric",
-        month: isCurrentYear ? "long" : "short",
-        year: isCurrentYear ? undefined : "numeric",
+        month: dynamic && isCurrentYear ? "long" : "short",
+        year: dynamic && isCurrentYear ? undefined : "numeric",
     });
 };

@@ -1,5 +1,6 @@
-import sql from "@/lib/db";
 import type { RawTransaction, Transaction } from "@/types/transaction";
+
+import sql from "@/lib/db";
 
 export async function getTransactions() {
     const transactions = await sql<RawTransaction[]>`

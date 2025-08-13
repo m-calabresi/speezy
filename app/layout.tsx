@@ -1,6 +1,7 @@
-import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Poppins } from "next/font/google";
+
+import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
 
 const poppins = Poppins({

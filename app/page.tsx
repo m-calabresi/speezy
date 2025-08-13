@@ -1,6 +1,7 @@
+import type { Metadata } from "next";
+
 import { NewTransactionForm } from "@/components/new-transaction-form";
 import { PageProvider } from "@/providers/page-provider";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "New entry - speezy",

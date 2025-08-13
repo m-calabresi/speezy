@@ -1,9 +1,10 @@
-import { Button } from "@/components/ui/button";
-import LogoDark from "@/public/logo.svg";
 import { AlertTriangleIcon, ArrowLeftIcon, LockIcon, LogInIcon, ShieldIcon, ShieldXIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import LogoDark from "@/public/logo.svg";
 
 export const metadata: Metadata = {
     title: "Unauthorized - speezy",

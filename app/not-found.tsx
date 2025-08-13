@@ -1,9 +1,10 @@
-import { Button } from "@/components/ui/button";
-import LogoDark from "@/public/logo.svg";
 import { CompassIcon, HelpCircleIcon, HouseIcon, LogInIcon, MapPinIcon, SearchIcon, ShieldIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import LogoDark from "@/public/logo.svg";
 
 export const metadata: Metadata = {
     title: "Not Found - speezy",

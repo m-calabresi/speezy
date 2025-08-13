@@ -1,6 +1,7 @@
-import { cn } from "@/lib/utils";
 import { ChartPie, History, Plus } from "lucide-react";
 import Link from "next/link";
+
+import { cn } from "@/lib/utils";
 
 const navItems = [
     { id: "add", url: "/", label: "Add", Icon: Plus },

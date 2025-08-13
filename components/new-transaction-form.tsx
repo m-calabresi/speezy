@@ -44,6 +44,7 @@ export function NewTransactionForm() {
     function onSubmit(raw: z.infer<typeof FormSchema>) {
         const data = {
             ...raw,
+            transactionDate: raw.transactionDate.toISOString().split("T")[0],
             amount: parseFloat(raw.amount.replace(".", "").replace(",", ".")),
         };
         console.log({ raw, validated: data }); // TODO: submit transaction

@@ -47,6 +47,7 @@
     - [x] Make repo public
 - Bugs
     - [x] Fix layout shift on mobile for navbar (on scroll & on account modal open)
+    - [ ] Decide whether to fix navbar showing on top of keyboard when scrolling all the way down from an input text (is it really a bug?)
 
 ## Commit SemVer
 

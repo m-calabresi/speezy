@@ -47,7 +47,7 @@ export function NewTransactionForm() {
             transactionDate: raw.transactionDate.toISOString().split("T")[0],
             amount: parseFloat(raw.amount.replace(".", "").replace(",", ".")),
         };
-        console.log({ raw, validated: data }); // TODO: submit transaction
+        console.log(data); // TODO: submit transaction
     }
 
     const handleInput = (e: React.FormEvent<HTMLInputElement>, onChange: (...event: any[]) => void) => {
@@ -135,7 +135,6 @@ export function NewTransactionForm() {
                                     <EuroIcon className="text-muted-foreground absolute start-0 top-1/2 ms-3 h-4 w-4 -translate-y-1/2" />
                                 </div>
                             </FormControl>
-
                             <FormMessage />
                         </FormItem>
                     )}

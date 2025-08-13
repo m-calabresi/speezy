@@ -118,16 +118,10 @@ export function NewTransactionForm() {
                                         type="text"
                                         className="w-[240px] ps-9"
                                         onInput={(e) => handleInput(e, onChange)}
-                                        onChange={(e) => {
-                                            const num = e.target.value;
-                                            console.log("onChange", { num });
-
-                                            onChange(num);
-                                        }}
+                                        onChange={onChange}
                                         onBlur={(e) => {
                                             const raw = parseFloat(e.target.value.replace(/[^0-9,]/g, "").replace(",", "."));
                                             const formatted = isNaN(raw) ? "" : formatCurrency(raw, false, false);
-                                            console.log("onBlur", { raw, formatted });
 
                                             onChange(formatted);
                                             onBlur();

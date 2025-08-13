@@ -19,6 +19,30 @@
     }
 }
 
+@custom-variant first-two-children {
+    & > *:nth-child(-n + 2) {
+        @slot;
+    }
+}
+
+@custom-variant last-two-children {
+    & > *:nth-last-child(-n + 2) {
+        @slot;
+    }
+}
+
+@custom-variant first-two {
+    &:nth-child(-n + 2) {
+        @slot;
+    }
+}
+
+@custom-variant last-two {
+    &:nth-last-child(-n + 2) {
+        @slot;
+    }
+}
+
 @theme inline {
     --font-poppins: var(--font-poppins-sans);
     --font-bricolage-grotesque: var(--font-bricolage-grotesque-serif);

@@ -1,17 +1,48 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, EuroIcon } from "lucide-react";
+import { CalendarIcon, EuroIcon, HandCoinsIcon, ShoppingBagIcon } from "lucide-react";
+import type React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { HandCoinsFlippedIcon } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn, formatCurrency, formatDate } from "@/lib/utils";
+import { expenseOptionTypes, type ExpenseOptionType } from "@/types/expenses";
+
+const expenseOptions: ExpenseOptionType[] = [
+    {
+        type: "expense",
+        name: "Spesa",
+        description: "Ho speso denaro.",
+        Icon: ShoppingBagIcon,
+    },
+    {
+        type: "earning",
+        name: "Entrata",
+        description: "Ho ricevuto denaro.",
+        Icon: EuroIcon,
+    },
+    {
+        type: "lent",
+        name: "Prestito",
+        description: "Ho prestato denaro, mi deve ritornare.",
+        Icon: HandCoinsIcon,
+    },
+    {
+        type: "borrowed",
+        name: "Debito",
+        description: "Ho chiesto un prestito, devo restituire denaro.",
+        Icon: HandCoinsFlippedIcon,
+    },
+];
 
 const FormSchema = z.object({
     transactionDate: z.date({
@@ -29,6 +60,7 @@ const FormSchema = z.object({
         },
     ),
     description: z.string().min(1, { error: "Inserisci una descrizione." }).max(1000, { error: "La descrizione non deve superare i 100 caratteri." }),
+    type: z.enum(expenseOptionTypes, { error: "Seleziona un tipo di transazione valido" }),
 });
 
 export function NewTransactionForm() {
@@ -38,6 +70,7 @@ export function NewTransactionForm() {
             transactionDate: new Date(),
             amount: "",
             description: "",
+            type: "expense",
         },
     });
 
@@ -153,6 +186,35 @@ export function NewTransactionForm() {
                                 />
                             </FormControl>
                             <FormDescription>{field.value.length}/100 caratteri</FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="type"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Tipo</FormLabel>
+                            <FormControl>
+                                <ToggleGroup
+                                    type="single"
+                                    onValueChange={field.onChange}
+                                    {...field}
+                                    className="grid w-full grid-cols-2 gap-4">
+                                    {expenseOptions.map(({ type, name, description, Icon }) => (
+                                        <ToggleGroupItem
+                                            defaultChecked={type === "expense"}
+                                            key={type}
+                                            value={type}
+                                            className="last-two:h-30 last-two:[&>svg]:size-4 last-two:[&>svg]:text-muted-foreground/50 last-two:[&>p]:text-muted-foreground/50 last-two:[&>h3]:mt-0 last-two:text-sm last-two:[&>h3]:text-muted-foreground/70 last-two:justify-start h-50 flex-col items-center justify-center rounded border p-2 text-lg">
+                                            <Icon className="text-muted-foreground size-8" />
+                                            <h3 className="text-foreground mt-2 font-semibold">{name}</h3>
+                                            <p className="text-muted-foreground -mt-3 text-sm font-light text-wrap">{description}</p>
+                                        </ToggleGroupItem>
+                                    ))}
+                                </ToggleGroup>
+                            </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}

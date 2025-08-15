@@ -17,7 +17,7 @@ jobs:
         run: echo "release-name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       - name: Checkout source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set package.json Version
         run: |

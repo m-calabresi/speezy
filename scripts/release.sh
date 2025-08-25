@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Usage example:
+# $ bash scripts/release.sh v1.2.3-alpha.1
+
 # Exit on any error
 set -e
 

@@ -121,7 +121,7 @@ export function NewTransactionForm() {
                                     <FormControl>
                                         <Button
                                             variant={"outline"}
-                                            className={cn("w-[240px] items-center justify-start pl-3 text-left font-normal")}>
+                                            className={cn("w-full items-center justify-start pl-3 text-left font-normal")}>
                                             <CalendarIcon className="text-muted-foreground h-4 w-4" />
                                             {field.value ? formatDate(field.value, false) : <span>Pick a date</span>}
                                         </Button>
@@ -154,7 +154,7 @@ export function NewTransactionForm() {
                                         step="0.01"
                                         inputMode="decimal"
                                         type="text"
-                                        className="w-[240px] ps-9"
+                                        className="w-full ps-9"
                                         onInput={(e) => handleInput(e, onChange)}
                                         onChange={onChange}
                                         onBlur={(e) => {

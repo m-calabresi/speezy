@@ -36,6 +36,7 @@ on:
     workflows: ["Production Release"] # also run after production release to use the correct `RELEASE_NAME`
     types:
       - completed
+  workflow_dispatch: # TODO: test-only, remove
 
 jobs:
   test:
@@ -44,42 +45,74 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
       - name: Enable Corepack
         run: corepack enable
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: "yarn"
+
       - name: Disable Telemetry
         run: npx next telemetry disable
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Cache Next.js Build Output
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/*.[jt]s', '**/*.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
+
       - name: Test Build
-        run: npm run build
+        run: yarn build
 
   deploy:
     name: Deploy Preview
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: Checkout source code
         uses: actions/checkout@v5
+
       - name: Enable Corepack
         run: corepack enable
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
       - name: Install Vercel CLI
         run: yarn global add vercel@latest
+
+      - name: Restore Next.js Build Cache
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/*.[jt]s', '**/*.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
+
       - name: Disable Telemetry
         run: |
           vercel telemetry disable
           npx next telemetry disable
+
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}

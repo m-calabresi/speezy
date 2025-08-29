@@ -2,6 +2,7 @@ name: Preview Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
 on:
   push:
     branches:
@@ -20,10 +21,22 @@ on:
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - ".github/**"
+      - "scripts/**"
+      - "**/*.md"
+      - "Dockerfile"
+      - ".dockerignore"
+      - ".gitignore"
+      - "prettierrc"
+      - "eslint.config.*"
+      - "LICENSE*"
+      - ".yarnrc.yml"
   workflow_run:
     workflows: ["Production Release"] # also run after production release to use the correct `RELEASE_NAME`
     types:
       - completed
+
 jobs:
   test:
     name: Test
@@ -44,6 +57,7 @@ jobs:
         uses: bahmutov/npm-install@v1
       - name: Test Build
         run: npm run build
+
   deploy:
     name: Deploy Preview
     runs-on: ubuntu-latest

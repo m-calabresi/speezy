@@ -204,13 +204,15 @@ export function NewTransactionForm() {
                             <FormLabel>Tipo</FormLabel>
                             <FormControl>
                                 <ToggleGroup
-                                    type="single"
-                                    onValueChange={field.onChange}
                                     {...field}
+                                    type="single"
+                                    value={field.value}
+                                    onValueChange={(val) => {
+                                        if (val) field.onChange(val); // prevent unselect
+                                    }}
                                     className="grid w-full grid-cols-2 gap-4">
                                     {expenseOptions.map(({ type, name, description, Icon }) => (
                                         <ToggleGroupItem
-                                            defaultChecked={type === "expense"}
                                             key={type}
                                             value={type}
                                             className="last-two:h-30 last-two:[&>svg]:size-4 last-two:[&>svg]:text-muted-foreground/50 last-two:[&>p]:text-muted-foreground/50 last-two:[&>h3]:mt-0 last-two:text-sm last-two:[&>h3]:text-muted-foreground/70 last-two:justify-start h-50 flex-col items-center justify-center rounded border p-2 text-lg">

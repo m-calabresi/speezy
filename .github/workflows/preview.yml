@@ -92,9 +92,6 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
-      - name: Install Vercel CLI
-        run: yarn add vercel@latest
-
       - name: Restore Next.js Build Cache
         uses: actions/cache@v4
         with:

@@ -10,7 +10,7 @@
     - [x] Add logo, favicon and description
     - [x] Add Shadcn base style
     - [x] Add custom colors
-    - [ ] Style Keycloak pages with [Keycloakify](https://www.keycloakify.dev/)
+    - [x] Style Keycloak pages with [Keycloakify](https://www.keycloakify.dev/)
     - [ ] Homogenize UI look and feel between auth and app pages
     - [ ] Improve auth pages light theme
 - Behavior
@@ -18,7 +18,7 @@
     - [ ] Add localization (IT, EN)
 - Features
     - [x] Add account settings
-    - [ ] Add `new expense` page
+    - [x] Add `new expense` page
     - [x] Add `not found` page
     - Add `history` page
         - [ ] Progressively load more entries

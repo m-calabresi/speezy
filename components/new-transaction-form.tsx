@@ -88,7 +88,7 @@ export function NewTransactionForm() {
         console.log(data); // TODO: submit transaction
     }
 
-    const handleInput = (e: React.FormEvent<HTMLInputElement>, onChange: (...event: any[]) => void) => {
+    const handleInput = (e: React.FormEvent<HTMLInputElement>, onChange: (value: string) => void) => {
         const input = e.target as HTMLInputElement;
         const value = input.value;
 

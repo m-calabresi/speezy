@@ -75,6 +75,8 @@ export function NewTransactionForm() {
     });
 
     function onSubmit(raw: z.infer<typeof FormSchema>) {
+        form.reset();
+
         const data = {
             ...raw,
             transactionDate: raw.transactionDate.toISOString().split("T")[0],

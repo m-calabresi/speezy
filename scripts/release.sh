@@ -1,14 +1,16 @@
 #!/bin/bash
 
 # Usage example:
-# $ bash scripts/release.sh v1.2.3-alpha.1
+# $ bash scripts/release.sh 1.2.3
+# or
+# $ bash scripts/release.sh 1.2.3-alpha.1
 
 # Exit on any error
 set -e
 
 # Validate input
 if [ "$#" -ne 1 ]; then
-  echo "Usage: $0 v<MAJOR>.<MINOR>.<BUG>[-suffix]"
+  echo "Usage: $0 <MAJOR>.<MINOR>.<BUG>[-suffix]"
   exit 1
 fi
 
@@ -22,7 +24,6 @@ fi
 
 # Validate version format
 # Regex explanation:
-# ^v                          => must start with 'v'
 # [0-9]+                      => one or more digits (major version)
 # \.                          => dot
 # [0-9]+                      => one or more digits (minor version)
@@ -33,17 +34,18 @@ fi
 #                                - followed by letters only (e.g., alpha, beta)
 #                                - optional: a dot followed by digits (e.g., .1)
 # $                           => end of string
-if [[ ! "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z]+(\.[0-9]+)?)?$ ]]; then
+if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z]+(\.[0-9]+)?)?$ ]]; then
   echo "❌ Error: Invalid version format."
   echo "Expected format:"
-  echo "  - v<MAJOR>.<MINOR>.<PATCH>"
+  echo "  - <MAJOR>.<MINOR>.<PATCH>"
   echo "  - Optional suffix: -alpha, -beta.1, etc."
   echo "Examples:"
-  echo "  ✔ v1.2.3"
-  echo "  ✔ v1.2.3-alpha"
-  echo "  ✔ v1.2.3-alpha.1"
-  echo "  ✖ v1.2.3-"
-  echo "  ✖ v1.2.3-alpha."
+  echo "  ✔ 1.2.3"
+  echo "  ✔ 1.2.3-alpha"
+  echo "  ✔ 1.2.3-alpha.1"
+  echo "  ✖ v1.2.3"
+  echo "  ✖ 1.2.3-"
+  echo "  ✖ 1.2.3-alpha."
   exit 1
 fi
 
@@ -60,8 +62,8 @@ git checkout main
 git pull --ff-only origin main
 
 # Prevent overwriting an existing tag
-if git rev-parse "$VERSION" >/dev/null 2>&1; then
-  echo "❌ Error: Tag $VERSION already exists."
+if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+  echo "❌ Error: Tag v$VERSION already exists."
   exit 1
 fi
 
@@ -74,7 +76,7 @@ jq --arg v "$VERSION" '.version = $v' package.json > "$TMP_FILE" && mv "$TMP_FIL
 echo "✏️ Commit Updated package.json"
 git add package.json
 
-# Don't push a tag if exists already
+# Don't push if no change in `package.json` version
 if git diff --cached --quiet; then
     echo "ℹ️ Skipping commit: package.json already at version $VERSION"
 else
@@ -84,10 +86,10 @@ else
 fi
 
 # Create and push the tag
-echo "✏️ Tagging version: $VERSION"
-git tag "$VERSION"
-git push origin "$VERSION"
-echo "✅ Tag $VERSION pushed successfully."
+echo "✏️ Tagging version: v$VERSION"
+git tag "v$VERSION"
+git push origin "v$VERSION"
+echo "✅ Tag v$VERSION pushed successfully."
 
 echo "🚀 Release initiated successfully!"
 echo "🔎 Monitor release status in GitHub Actions."

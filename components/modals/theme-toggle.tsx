@@ -2,10 +2,10 @@
 
 import { MoonIcon, PaintbrushVerticalIcon, SmartphoneIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import type React from "react";
 
 import { Button } from "@/components/ui/button";
 import { Modal, ModalBody, ModalBodyOption, ModalBodyOptionGroup, ModalClose, ModalContent, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/modal";
-import type React from "react";
 
 const themes = [
     { name: "light", Icon: SunIcon },

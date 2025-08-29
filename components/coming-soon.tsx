@@ -1,7 +1,8 @@
+import Image from "next/image";
+
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import PlaceholderImageDark from "@/public/placeholder-dark.svg";
 import PlaceholderImageLight from "@/public/placeholder-light.svg";
-import Image from "next/image";
 
 export default function ComingSoon() {
     return (

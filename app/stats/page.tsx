@@ -1,7 +1,8 @@
+import type { Metadata } from "next";
+
 import ComingSoon from "@/components/coming-soon";
 import ReleaseInfo from "@/components/release-info";
 import { PageProvider } from "@/providers/page-provider";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Stats - speezy",

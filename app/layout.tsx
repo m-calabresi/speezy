@@ -1,6 +1,8 @@
-import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Poppins } from "next/font/google";
+
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -46,6 +48,12 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange>
                     <div className="from-background to-primary/40 scrollbar-hidden flex h-full w-full flex-col overflow-auto bg-gradient-to-br">{children}</div>
+                    <Toaster
+                        richColors
+                        closeButton={false}
+                        expand={false}
+                        position="bottom-center"
+                    />
                 </ThemeProvider>
             </body>
         </html>

@@ -1,7 +1,8 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { Modal, ModalBody, ModalBodyOption, ModalBodyOptionGroup, ModalContent, ModalFooter, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/modal";
 import { buildNumber } from "@/lib/release";
-import Link from "next/link";
 
 export function AboutModal() {
     return (

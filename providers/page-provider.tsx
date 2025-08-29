@@ -1,8 +1,9 @@
+import type React from "react";
+
 import Header from "@/components/header";
 import Navigation from "@/components/navigation";
 import { cn } from "@/lib/utils";
 import { AuthProvider } from "@/providers/auth-provider";
-import type React from "react";
 
 type PageProviderProps = React.ComponentProps<"section"> & { path: string };
 

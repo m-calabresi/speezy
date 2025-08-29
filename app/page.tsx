@@ -1,7 +1,7 @@
-import ComingSoon from "@/components/coming-soon";
-import ReleaseInfo from "@/components/release-info";
-import { PageProvider } from "@/providers/page-provider";
 import type { Metadata } from "next";
+
+import { NewTransactionForm } from "@/components/new-transaction-form";
+import { PageProvider } from "@/providers/page-provider";
 
 export const metadata: Metadata = {
     title: "New entry - speezy",
@@ -12,8 +12,7 @@ export const metadata: Metadata = {
 export default function Home() {
     return (
         <PageProvider path="/">
-            <ComingSoon />
-            <ReleaseInfo />
+            <NewTransactionForm />
         </PageProvider>
     );
 }

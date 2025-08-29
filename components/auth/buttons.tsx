@@ -1,6 +1,7 @@
+import type React from "react";
+
 import { signIn, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
-import type React from "react";
 
 export async function SignInButton({ callbackUrl, className, children, ...props }: React.ComponentProps<typeof Button> & { callbackUrl?: string }) {
     return (

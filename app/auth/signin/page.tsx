@@ -1,13 +1,14 @@
-import { auth } from "@/auth";
-import { SignInButton } from "@/components/auth/buttons";
-import { UserAvatar } from "@/components/user-avatar";
-import { cn } from "@/lib/utils";
-import LogoDark from "@/public/logo.svg";
 import { ArrowRightIcon, ShieldAlertIcon, ShieldIcon, UserIcon } from "lucide-react";
 import type { Metadata } from "next";
 import type { User } from "next-auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+
+import { auth } from "@/auth";
+import { SignInButton } from "@/components/auth/buttons";
+import { UserAvatar } from "@/components/user-avatar";
+import { cn } from "@/lib/utils";
+import LogoDark from "@/public/logo.svg";
 
 export const metadata: Metadata = {
     title: "Sign In - speezy",

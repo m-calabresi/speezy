@@ -1,3 +1,7 @@
+import { LogOutIcon } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+
 import { auth } from "@/auth";
 import { SignOutButton } from "@/components/auth/buttons";
 import { AboutModal } from "@/components/modals/about";
@@ -5,9 +9,6 @@ import { ThemeToggleModal } from "@/components/modals/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Modal, ModalBody, ModalBodyOption, ModalBodyOptionGroup, ModalClose, ModalContent, ModalFooter, ModalHeader, ModalTitle, ModalTrigger } from "@/components/ui/modal";
 import { UserAvatar } from "@/components/user-avatar";
-import { LogOutIcon } from "lucide-react";
-import Link from "next/link";
-import { redirect } from "next/navigation";
 
 export default async function Profile() {
     const session = await auth();

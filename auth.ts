@@ -1,6 +1,7 @@
-import { getRoles } from "@/lib/auth";
 import NextAuth from "next-auth";
 import Keycloak from "next-auth/providers/keycloak";
+
+import { getRoles } from "@/lib/auth";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
     providers: [

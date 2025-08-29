@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, EuroIcon, HandCoinsIcon, ShoppingBagIcon } from "lucide-react";
+import { CalendarIcon, EuroIcon, HandCoinsIcon, PlusIcon, ShoppingBagIcon } from "lucide-react";
 import type React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -221,7 +221,12 @@ export function NewTransactionForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Submit</Button>
+                <Button
+                    type="submit"
+                    className="h-14 w-full">
+                    <PlusIcon />
+                    Add
+                </Button>
             </form>
         </Form>
     );

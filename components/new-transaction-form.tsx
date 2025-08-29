@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, EuroIcon, HandCoinsIcon, PlusIcon, ShoppingBagIcon } from "lucide-react";
 import type React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { cn, formatCurrency, formatDate } from "@/lib/utils";
+import { cn, formatCurrency, formatDate, formatExpense } from "@/lib/utils";
 import { expenseOptionTypes, type ExpenseOption } from "@/types/expenses";
 
 const expenseOptions: ExpenseOption[] = [
@@ -76,6 +77,7 @@ export function NewTransactionForm() {
 
     function onSubmit(raw: z.infer<typeof FormSchema>) {
         form.reset();
+        toast.success(`${formatExpense(raw.type)}!`);
 
         const data = {
             ...raw,

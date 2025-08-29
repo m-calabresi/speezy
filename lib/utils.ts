@@ -1,3 +1,4 @@
+import type { ExpenseOptionType } from "@/types/expenses";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -23,4 +24,16 @@ export const formatDate = (date: Date, dynamic: boolean = true) => {
         month: dynamic && isCurrentYear ? "long" : "short",
         year: dynamic && isCurrentYear ? undefined : "numeric",
     });
+};
+
+export const formatExpense = (expense: ExpenseOptionType) => {
+    const formatMap: { [key in ExpenseOptionType]: string } = {
+        expense: "Spesa aggiunta",
+        earning: "Entrata aggiunta",
+        borrowFulfill: "Debito aggiunto",
+        borrowPending: "Debito aggiunto",
+        lendFulfill: "Prestito aggiunto",
+        lendPending: "Prestito aggiunto",
+    };
+    return formatMap[expense];
 };

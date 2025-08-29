@@ -79,6 +79,7 @@ export function NewTransactionForm() {
             ...raw,
             transactionDate: raw.transactionDate.toISOString().split("T")[0],
             amount: parseFloat(raw.amount.replace(".", "").replace(",", ".")),
+            description: raw.description.trim(),
         };
         console.log(data); // TODO: submit transaction
     }

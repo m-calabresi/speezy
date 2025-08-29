@@ -74,6 +74,8 @@ jobs:
   deploy:
     name: Deploy Preview
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     needs: test
     steps:
       - name: Checkout source code

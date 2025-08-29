@@ -183,6 +183,7 @@ export function NewTransactionForm() {
                                 <Textarea
                                     placeholder="Descrivi la transazione"
                                     className="resize-none"
+                                    maxLength={100}
                                     {...field}
                                 />
                             </FormControl>

@@ -36,7 +36,6 @@ on:
     workflows: ["Production Release"] # also run after production release to use the correct `RELEASE_NAME`
     types:
       - completed
-  workflow_dispatch: # TODO: test-only, remove
 
 jobs:
   test:

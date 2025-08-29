@@ -15,9 +15,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn, formatCurrency, formatDate } from "@/lib/utils";
-import { expenseOptionTypes, type ExpenseOptionType } from "@/types/expenses";
+import { expenseOptionTypes, type ExpenseOption } from "@/types/expenses";
 
-const expenseOptions: ExpenseOptionType[] = [
+const expenseOptions: ExpenseOption[] = [
     {
         type: "expense",
         name: "Spesa",

@@ -31,13 +31,13 @@ const expenseOptions: ExpenseOptionType[] = [
         Icon: EuroIcon,
     },
     {
-        type: "lent",
+        type: "lendPending",
         name: "Prestito",
         description: "Ho prestato denaro, mi deve ritornare.",
         Icon: HandCoinsIcon,
     },
     {
-        type: "borrowed",
+        type: "borrowPending",
         name: "Debito",
         description: "Ho chiesto un prestito, devo restituire denaro.",
         Icon: HandCoinsFlippedIcon,

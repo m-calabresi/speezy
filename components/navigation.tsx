@@ -29,7 +29,7 @@ export default function Navigation({ pathName }: { pathName: string }) {
                                     )}>
                                     <Icon className="h-5 w-5" />
                                 </div>
-                                <span className={cn("text-xs font-medium", isActive && "")}>{label}</span>
+                                <span className="text-xs font-medium">{label}</span>
                             </Link>
                         </li>
                     );

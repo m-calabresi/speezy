@@ -3,6 +3,7 @@
 import { ChartPie, History, Plus } from "lucide-react";
 import Link from "next/link";
 
+import useKeyboardOpen from "@/hooks/useKeyboardOpen";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
@@ -13,10 +14,11 @@ const navItems = [
 ];
 
 export default function Navigation() {
+    const { isKeyboardOpen } = useKeyboardOpen();
     const pathName = usePathname();
 
     return (
-        <nav className="bg-background bottom-safe-offset-0 fixed right-0 left-0 z-40 w-full py-3">
+        <nav className={cn("bg-background bottom-safe-offset-0 fixed right-0 left-0 z-40 w-full py-3 transition-transform duration-200 ease-in-out", isKeyboardOpen && "translate-y-full")}>
             <ul className="mx-auto flex max-w-md items-center justify-around">
                 {navItems.map(({ id, url, label, Icon }) => {
                     const isActive = pathName === url;

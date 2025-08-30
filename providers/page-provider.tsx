@@ -18,7 +18,7 @@ export function PageProvider({ path, className, children, ...props }: PageProvid
                     {children}
                 </main>
             </div>
-            <Navigation pathName={path} />
+            <Navigation />
         </AuthProvider>
     );
 }

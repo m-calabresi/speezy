@@ -1,7 +1,10 @@
+"use client";
+
 import { ChartPie, History, Plus } from "lucide-react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 const navItems = [
     { id: "add", url: "/", label: "Add", Icon: Plus },
@@ -9,7 +12,9 @@ const navItems = [
     { id: "stats", url: "/stats", label: "Stats", Icon: ChartPie },
 ];
 
-export default function Navigation({ pathName }: { pathName: string }) {
+export default function Navigation() {
+    const pathName = usePathname();
+
     return (
         <nav className="bg-background bottom-safe-offset-0 fixed right-0 left-0 z-40 w-full py-3">
             <ul className="mx-auto flex max-w-md items-center justify-around">

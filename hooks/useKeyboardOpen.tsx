@@ -6,22 +6,7 @@ export default function useKeyboardOpen() {
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
     useEffect(() => {
-        const handleFocusIn = (e: FocusEvent) => {
-            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
-                setIsKeyboardOpen(true);
-            }
-        };
-
-        const handleFocusOut = (e: FocusEvent) => {
-            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
-                setIsKeyboardOpen(false);
-            }
-        };
-
-        window.addEventListener("focusin", handleFocusIn);
-        window.addEventListener("focusout", handleFocusOut);
-
-        // Extra: detect keyboard toggle via viewport resize
+        // Detect keyboard toggle via viewport resize
         const viewport = window.visualViewport;
         const onResize = () => {
             if (!viewport) return;
@@ -33,8 +18,6 @@ export default function useKeyboardOpen() {
         viewport?.addEventListener("resize", onResize);
 
         return () => {
-            window.removeEventListener("focusin", handleFocusIn);
-            window.removeEventListener("focusout", handleFocusOut);
             viewport?.removeEventListener("resize", onResize);
         };
     }, []);

@@ -113,12 +113,12 @@ export function NewTransactionForm() {
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8">
+                className="space-y-8 md:mx-auto md:grid md:max-w-4xl md:grid-cols-2 md:grid-rows-[auto_auto_auto_auto_auto] md:gap-4 md:space-y-4">
                 <FormField
                     control={form.control}
                     name="transactionDate"
                     render={({ field }) => (
-                        <FormItem className="flex flex-col">
+                        <FormItem className="flex flex-col md:col-start-1 md:row-start-1">
                             <FormLabel>Date</FormLabel>
                             <Popover>
                                 <PopoverTrigger asChild>
@@ -149,7 +149,7 @@ export function NewTransactionForm() {
                     control={form.control}
                     name="amount"
                     render={({ field: { onChange, onBlur, ...field } }) => (
-                        <FormItem>
+                        <FormItem className="md:col-start-1 md:row-start-2">
                             <FormLabel>Amount</FormLabel>
                             <FormControl>
                                 <div className="relative">
@@ -181,7 +181,7 @@ export function NewTransactionForm() {
                     control={form.control}
                     name="description"
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="md:col-start-1 md:row-start-3">
                             <FormLabel>Descrizione</FormLabel>
                             <FormControl>
                                 <Textarea
@@ -200,7 +200,7 @@ export function NewTransactionForm() {
                     control={form.control}
                     name="type"
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="md:col-start-2 md:row-span-4 md:row-start-1">
                             <FormLabel>Tipo</FormLabel>
                             <FormControl>
                                 <ToggleGroup
@@ -229,7 +229,7 @@ export function NewTransactionForm() {
                 />
                 <Button
                     type="submit"
-                    className="h-14 w-full">
+                    className="h-14 w-full md:col-start-2 md:row-start-5">
                     <PlusIcon />
                     Add
                 </Button>

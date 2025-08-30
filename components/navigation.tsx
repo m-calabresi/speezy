@@ -18,8 +18,12 @@ export default function Navigation() {
     const pathName = usePathname();
 
     return (
-        <nav className={cn("bg-background bottom-safe-offset-0 fixed right-0 left-0 z-40 w-full py-3 transition-transform duration-200 ease-in-out", isKeyboardOpen && "translate-y-full")}>
-            <ul className="mx-auto flex max-w-md items-center justify-around">
+        <nav
+            className={cn(
+                "bg-background bottom-safe-offset-0 fixed right-0 left-0 z-40 w-full py-3 transition-transform duration-200 ease-in-out md:left-1/2 md:mb-3 md:h-max md:w-max md:-translate-x-1/2 md:rounded-full md:px-2 md:shadow xl:top-0 xl:right-auto xl:bottom-auto xl:left-0 xl:mb-0 xl:ml-5 xl:translate-x-0 xl:translate-y-20 xl:px-0 xl:py-7",
+                isKeyboardOpen && "translate-y-full",
+            )}>
+            <ul className="mx-auto flex max-w-md items-center justify-around md:max-w-max xl:flex-col xl:gap-12">
                 {navItems.map(({ id, url, label, Icon }) => {
                     const isActive = pathName === url;
                     return (

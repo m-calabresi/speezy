@@ -54,7 +54,7 @@ export default async function History() {
         <PageProvider path="/history">
             <article className="h-[1000px] w-full">
                 {transactions.length !== 0 && (
-                    <ul className="divide-background w-full divide-y-8">
+                    <ul className="w-full divide-y-8 divide-transparent">
                         {transactions.map((t) => (
                             <li key={t.id}>
                                 <TransactionItem item={t} />

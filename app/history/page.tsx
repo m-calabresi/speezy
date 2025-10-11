@@ -52,7 +52,7 @@ export default async function History() {
 
     return (
         <PageProvider path="/history">
-            <article className="h-[1000px] w-full">
+            <article className="h-[1000px] w-full pl-0 xl:pl-32">
                 {transactions.length !== 0 && (
                     <ul className="w-full divide-y-8 divide-transparent">
                         {transactions.map((t) => (

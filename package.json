@@ -52,5 +52,5 @@
     "typescript": "^5.9.3",
     "vercel": "^48.2.9"
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.10.3"
 }

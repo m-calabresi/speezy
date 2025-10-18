@@ -35,9 +35,9 @@ function TransactionItem({ item }: { item: Transaction }) {
     return (
         <Card
             className={cn(
-                option.isPending === undefined && "bg-card",
+                option.isPending === undefined && "bg-background dark:bg-card",
                 option.isPending !== undefined && option.isPending && "border-amber-100/10 bg-linear-to-r from-amber-100/4 to-amber-100/5",
-                option.isPending !== undefined && !option.isPending && "bg-background dark:bg-card",
+                option.isPending !== undefined && !option.isPending && "bg-background dark:bg-card/20",
             )}>
             <CardContent className="grid grid-cols-[min-content_auto_min-content] grid-rows-[min-content_auto] items-start gap-x-4 gap-y-2">
                 <div

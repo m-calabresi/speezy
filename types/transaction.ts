@@ -1,9 +1,15 @@
+import type { LucideIcon } from "lucide-react";
+
+export const transactionTypes = ["expense", "earning", "lendPending", "borrowPending", "lendFulfill", "borrowFulfill"] as const;
+
+export type TransactionType = (typeof transactionTypes)[number];
+
 export type Transaction = {
     id: string;
     transactionAt: Date;
     amount: number;
     description: string;
-    isLoan: boolean;
+    type: TransactionType;
 };
 
 /*
@@ -14,4 +20,18 @@ export type Transaction = {
 */
 export type RawTransaction = Omit<Transaction, "amount"> & {
     amount: string;
+};
+
+export type FormTransaction = {
+    amount: number;
+    description: string;
+    type: TransactionType;
+    icon: LucideIcon;
+};
+
+export type TransactionOption = {
+    name: string;
+    description: string;
+    type: TransactionType;
+    Icon: LucideIcon;
 };

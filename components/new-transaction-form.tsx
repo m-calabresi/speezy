@@ -16,9 +16,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn, formatCurrency, formatDate, formatExpense } from "@/lib/utils";
-import { expenseOptionTypes, type ExpenseOption } from "@/types/expenses";
+import { transactionTypes, type TransactionOption } from "@/types/transaction";
 
-const expenseOptions: ExpenseOption[] = [
+const transactionOptions: TransactionOption[] = [
     {
         type: "expense",
         name: "Spesa",
@@ -61,7 +61,7 @@ const FormSchema = z.object({
         },
     ),
     description: z.string().min(1, { error: "Inserisci una descrizione." }).max(1000, { error: "La descrizione non deve superare i 100 caratteri." }),
-    type: z.enum(expenseOptionTypes, { error: "Seleziona un tipo di transazione valido" }),
+    type: z.enum(transactionTypes, { error: "Seleziona un tipo di transazione valido" }),
 });
 
 export function NewTransactionForm() {
@@ -77,7 +77,7 @@ export function NewTransactionForm() {
 
     function onSubmit(raw: z.infer<typeof FormSchema>) {
         form.reset();
-        toast.success(`${formatExpense(raw.type)}!`);
+        toast.success(`${formatTransaction(raw.type)}!`);
 
         const data = {
             ...raw,
@@ -163,7 +163,7 @@ export function NewTransactionForm() {
                                         onChange={onChange}
                                         onBlur={(e) => {
                                             const raw = parseFloat(e.target.value.replace(/[^0-9,]/g, "").replace(",", "."));
-                                            const formatted = isNaN(raw) ? "" : formatCurrency(raw, false, false);
+                                            const formatted = isNaN(raw) ? "" : formatCurrency(raw, { displayCurrencySign: false, displayCurrencySymbol: false });
 
                                             onChange(formatted);
                                             onBlur();
@@ -211,7 +211,7 @@ export function NewTransactionForm() {
                                         if (val) field.onChange(val); // prevent unselect
                                     }}
                                     className="grid w-full grid-cols-2 gap-4">
-                                    {expenseOptions.map(({ type, name, description, Icon }) => (
+                                    {transactionOptions.map(({ type, name, description, Icon }) => (
                                         <ToggleGroupItem
                                             key={type}
                                             value={type}

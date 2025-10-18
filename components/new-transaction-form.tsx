@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, EuroIcon, HandCoinsIcon, PlusIcon, ShoppingBagIcon } from "lucide-react";
+import { CalendarIcon, CoinsIcon, EuroIcon, HandHelpingIcon, PlusIcon, ShoppingBagIcon } from "lucide-react";
 import type React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -10,12 +10,11 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { HandCoinsFlippedIcon } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { cn, formatCurrency, formatDate, formatExpense } from "@/lib/utils";
+import { cn, formatCurrency, formatDate, formatTransaction } from "@/lib/utils";
 import { transactionTypes, type TransactionOption } from "@/types/transaction";
 
 const transactionOptions: TransactionOption[] = [
@@ -35,13 +34,13 @@ const transactionOptions: TransactionOption[] = [
         type: "lendPending",
         name: "Prestito",
         description: "Ho prestato denaro, mi deve ritornare.",
-        Icon: HandCoinsIcon,
+        Icon: HandHelpingIcon,
     },
     {
         type: "borrowPending",
         name: "Debito",
         description: "Ho chiesto un prestito, devo restituire denaro.",
-        Icon: HandCoinsFlippedIcon,
+        Icon: CoinsIcon,
     },
 ];
 
@@ -215,7 +214,7 @@ export function NewTransactionForm() {
                                         <ToggleGroupItem
                                             key={type}
                                             value={type}
-                                            className="last-two:h-30 last-two:[&>svg]:size-4 last-two:[&>svg]:text-muted-foreground/50 last-two:[&>p]:text-muted-foreground/50 last-two:[&>h3]:mt-0 last-two:text-sm last-two:[&>h3]:text-muted-foreground/70 last-two:justify-start h-50 flex-col items-center justify-center rounded border p-2 text-lg">
+                                            className="last-two:h-30 last-two:[&>svg]:size-4 last-two:[&>svg]:text-muted-foreground/50 last-two:[&>p]:text-muted-foreground/50 last-two:[&>h3]:mt-0 last-two:text-sm last-two:[&>h3]:text-muted-foreground/70 last-two:justify-start border-primary hover:ring-primary data-[state=on]:bg-primary data-[state=on]:text-foreground h-50 flex-col items-center justify-center rounded border p-2 text-lg hover:bg-transparent hover:ring-4 data-[state=on]:hover:ring-transparent">
                                             <Icon className="text-muted-foreground size-8" />
                                             <h3 className="text-foreground mt-2 font-semibold">{name}</h3>
                                             <p className="text-muted-foreground -mt-3 text-sm font-light text-wrap">{description}</p>

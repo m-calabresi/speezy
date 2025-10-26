@@ -24,7 +24,7 @@ export function TransactionList() {
 
     useEffect(() => {
         if (!inView || isFetching || isFetchingNextPage || !hasNextPage) return;
-        // fetchNextPage();
+        fetchNextPage();
     }, [inView]); // eslint-disable-line react-hooks/exhaustive-deps
     // TODO: update to useEffectEvent
 

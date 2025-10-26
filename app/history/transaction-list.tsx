@@ -1,20 +1,18 @@
 "use client";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { LoaderCircle, ShoppingBagIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { TransactionItem } from "@/app/history/transaction-item";
 import { Button } from "@/components/ui/button";
 import { getTransactions } from "@/queries/transactions";
-import type { Paginated } from "@/types/pagination";
-import { Transaction } from "@/types/transaction";
-import { LoaderCircle, ShoppingBagIcon } from "lucide-react";
 
 export function TransactionList() {
-    const { data, isPending, error, refetch, isFetching, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery<Paginated<Transaction[]>>({
+    const { data, isPending, error, refetch, isFetching, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery({
         queryKey: ["transactions"],
-        queryFn: ({ pageParam }) => getTransactions(pageParam as number),
+        queryFn: ({ pageParam }) => getTransactions(pageParam),
         initialPageParam: 0,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
     });

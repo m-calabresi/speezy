@@ -14,7 +14,7 @@ export default function Stats() {
     return (
         <PageProvider path="/stats">
             <ComingSoon />
-            <ReleaseInfo />
+            <ReleaseInfo className="mb-5 md:mb-3 xl:mb-5" />
         </PageProvider>
     );
 }

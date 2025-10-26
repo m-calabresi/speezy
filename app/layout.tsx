@@ -47,7 +47,7 @@ export default function RootLayout({
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange>
-                    <div className="from-background to-primary/40 scrollbar-hidden flex h-full w-full flex-col overflow-auto bg-gradient-to-br">{children}</div>
+                        <div className="from-background to-primary/40 flex h-full w-full flex-col bg-gradient-to-br">{children}</div>
                     <Toaster
                         richColors
                         closeButton={false}

@@ -112,7 +112,7 @@ export function NewTransactionForm() {
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8 md:mx-auto md:grid md:max-w-4xl md:grid-cols-2 md:grid-rows-[auto_auto_auto_auto_auto] md:gap-4 md:space-y-4">
+                className="space-y-8 pt-3 pb-5 md:mx-auto md:grid md:max-w-4xl md:grid-cols-2 md:grid-rows-[auto_auto_auto_auto_auto] md:gap-4 md:space-y-4">
                 <FormField
                     control={form.control}
                     name="transactionDate"

@@ -21,7 +21,7 @@
     - [x] Add `new expense` page
     - [x] Add `not found` page
     - Add `history` page
-        - [ ] Progressively load more entries
+        - [x] Progressively load more entries
         - [ ] Add filters
         - [ ] Add edit feature to entries
     - [ ] Add `stats` page
@@ -29,9 +29,8 @@
     - [x] Implement app auth with `auth.js`
     - [ ] Deploy & configure Keycloak
 - Backend
-    - [ ] Design server actions
     - [x] Implement DB connectivity
-    - [ ] Implement pagination
+    - [x] Implement pagination
 - Database
     - [x] Design expenses representation
 - CI
@@ -48,6 +47,10 @@
 - Bugs
     - [x] Fix layout shift on mobile for navbar (on scroll & on account modal open)
     - [x] Decide whether to fix navbar showing on top of keyboard when scrolling all the way down from an input text (is it really a bug?)
+    - [ ] Fix error ``Encountered two children with the same key, `c4ae3e7e-93b9-4973-b8cc-1b16b80ba621`.`` in History.
+    - [ ] Fix order of items is alphabetical for same `transactionDate` (consider moving to `transactionDateTime`).
+    - [ ] Check if prefetch actually work.
+    - [ ] Check error handling if error is thrown in `getTransactions()`.
 
 ## Commit SemVer
 

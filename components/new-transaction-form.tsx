@@ -15,6 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn, formatCurrency, formatDate, formatTransaction } from "@/lib/utils";
+import { addTransaction } from "@/queries/transactions";
 import { transactionTypes, type TransactionOption } from "@/types/transaction";
 
 const transactionOptions: TransactionOption[] = [
@@ -74,17 +75,25 @@ export function NewTransactionForm() {
         },
     });
 
-    function onSubmit(raw: z.infer<typeof FormSchema>) {
-        form.reset();
-        toast.success(`${formatTransaction(raw.type)}!`);
-
+    async function onSubmit(raw: z.infer<typeof FormSchema>) {
         const data = {
             ...raw,
             transactionAt: raw.transactionAt,
             amount: parseFloat(raw.amount.replace(".", "").replace(",", ".")),
             description: raw.description.trim(),
         };
-        console.log(data); // TODO: submit transaction
+
+        try {
+            await addTransaction(data);
+
+            form.reset();
+            toast.success(`${formatTransaction(raw.type)}!`);
+        } catch (error) {
+            console.error(error);
+
+            const message = typeof error === "string" ? error : "Si è verificato un problema, riprova.";
+            toast.error(message);
+        }
     }
 
     const handleInput = (e: React.FormEvent<HTMLInputElement>, onChange: (value: string) => void) => {

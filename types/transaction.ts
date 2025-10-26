@@ -39,3 +39,5 @@ export type TransactionOption = {
     type: TransactionType;
     Icon: LucideIcon;
 };
+
+export type NewTransaction = Omit<Transaction, "id">;

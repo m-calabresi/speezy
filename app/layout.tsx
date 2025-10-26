@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Poppins } from "next/font/google";
 
 import { Toaster } from "@/components/ui/sonner";
+import QueryProvider from "@/providers/query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 import "./globals.css";
 
@@ -42,19 +43,21 @@ export default function RootLayout({
                 />
             </head>
             <body className={`${poppins.variable} ${bricolageGrotesque.variable} h-dvh-safe w-full overflow-hidden font-sans`}>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange>
+                <QueryProvider>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange>
                         <div className="from-background to-primary/40 flex h-full w-full flex-col bg-gradient-to-br">{children}</div>
-                    <Toaster
-                        richColors
-                        closeButton={false}
-                        expand={false}
-                        position="bottom-center"
-                    />
-                </ThemeProvider>
+                        <Toaster
+                            richColors
+                            closeButton={false}
+                            expand={false}
+                            position="bottom-center"
+                        />
+                    </ThemeProvider>
+                </QueryProvider>
             </body>
         </html>
     );

@@ -22,6 +22,10 @@ export type RawTransaction = Omit<Transaction, "amount"> & {
     amount: string;
 };
 
+export type ApiTransaction = Omit<Transaction, "transactionAt"> & {
+    transactionAt: string;
+};
+
 export type FormTransaction = {
     amount: number;
     description: string;

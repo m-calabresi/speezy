@@ -45,7 +45,7 @@ const transactionOptions: TransactionOption[] = [
 ];
 
 const FormSchema = z.object({
-    transactionDate: z.date({
+    transactionAt: z.date({
         error: "Seleziona la data della transazione.",
     }),
     amount: z.string().refine(
@@ -67,7 +67,7 @@ export function NewTransactionForm() {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema, undefined, { raw: true }),
         defaultValues: {
-            transactionDate: new Date(),
+            transactionAt: new Date(),
             amount: "",
             description: "",
             type: "expense",
@@ -80,7 +80,7 @@ export function NewTransactionForm() {
 
         const data = {
             ...raw,
-            transactionDate: raw.transactionDate.toISOString().split("T")[0],
+            transactionAt: raw.transactionAt,
             amount: parseFloat(raw.amount.replace(".", "").replace(",", ".")),
             description: raw.description.trim(),
         };
@@ -115,7 +115,7 @@ export function NewTransactionForm() {
                 className="space-y-8 pt-3 pb-5 md:mx-auto md:grid md:max-w-4xl md:grid-cols-2 md:grid-rows-[auto_auto_auto_auto_auto] md:gap-4 md:space-y-4">
                 <FormField
                     control={form.control}
-                    name="transactionDate"
+                    name="transactionAt"
                     render={({ field }) => (
                         <FormItem className="flex flex-col md:col-start-1 md:row-start-1">
                             <FormLabel>Date</FormLabel>

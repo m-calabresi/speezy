@@ -17,12 +17,13 @@ function getCursor(cursorParam: string | null) {
     }
 }
 
-export const GET = auth(async (req) => {
-    if (!req.auth) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+export const GET = auth(async (request) => {
+    if (!request.auth) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-    const userId = "292a485f-a56a-4938-8f1a-bbbbbbbbbbb2"; // TODO: retrieve from req.auth
-    const cursor = getCursor(req.nextUrl.searchParams.get("cursor"));
+    const userId = "292a485f-a56a-4938-8f1a-bbbbbbbbbbb2"; // TODO: retrieve from request.auth
+    const cursor = getCursor(request.nextUrl.searchParams.get("cursor"));
 
+    try {
     const data = await sql<RawTransaction[]>`
         SELECT id, transaction_at, amount, description, type
         FROM transaction
@@ -37,4 +38,8 @@ export const GET = auth(async (req) => {
     const response: Paginated<Transaction[]> = { content: transactions, nextCursor };
 
     return NextResponse.json(response, { status: 200 });
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    }
 });

@@ -48,7 +48,7 @@
     - [x] Fix layout shift on mobile for navbar (on scroll & on account modal open)
     - [x] Decide whether to fix navbar showing on top of keyboard when scrolling all the way down from an input text (is it really a bug?)
     - [ ] Fix error ``Encountered two children with the same key, `c4ae3e7e-93b9-4973-b8cc-1b16b80ba621`.`` in History.
-    - [ ] Fix order of items is alphabetical for same `transactionDate` (consider moving to `transactionDateTime`).
+    - [x] Fix order of items is alphabetical for same `transactionAt` (consider moving to datetime).
     - [ ] Check if prefetch actually work.
     - [ ] Check error handling if error is thrown in `getTransactions()`.
 

@@ -29,7 +29,7 @@ export const GET = auth(async (request) => {
         SELECT id, transaction_at, amount, description, type
         FROM transaction
         WHERE user_id=${userId}
-        ORDER BY transaction_at DESC
+        ORDER BY transaction_at DESC, created_at DESC
         LIMIT ${pageSize}
         OFFSET ${cursor * pageSize};`;
 

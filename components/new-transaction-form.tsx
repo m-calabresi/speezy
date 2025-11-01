@@ -76,6 +76,10 @@ export function NewTransactionForm() {
     });
 
     async function onSubmit(raw: z.infer<typeof FormSchema>) {
+        // distinguish same day transactions by time
+        const now = new Date();
+        raw.transactionAt.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+
         const data = {
             ...raw,
             transactionAt: raw.transactionAt,

@@ -2,6 +2,9 @@ import type { TransactionType } from "@/types/transaction";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+export const TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS = 9;
+export const TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS = 2;
+
 type FormatCurrencyProps = {
     displayCurrencySign?: boolean;
     displayCurrencySymbol?: boolean;

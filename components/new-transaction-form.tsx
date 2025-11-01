@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { capitalize, cn, formatCurrency, formatDate, formatTransaction } from "@/lib/utils";
+import { capitalize, cn, formatCurrency, formatDate, formatTransaction, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS } from "@/lib/utils";
 import { addTransaction } from "@/queries/transactions";
 import { transactionTypes, type TransactionOption } from "@/types/transaction";
 
@@ -49,17 +49,33 @@ const FormSchema = z.object({
     transactionAt: z.date({
         error: "Seleziona la data della transazione.",
     }),
-    amount: z.string().refine(
-        (val: string) => {
-            const normalized = val.replace(".", "").replace(",", ".");
-            const parsed = parseFloat(normalized);
+    amount: z
+        .string()
+        .refine(
+            (val: string) => {
+                const normalized = val.replaceAll(".", "").replace(",", ".");
+                const parsed = parseFloat(normalized);
 
-            return !isNaN(parsed) && parsed >= 0;
-        },
-        {
-            error: "Inserisci un importo valido e positivo.",
-        },
-    ),
+                return !isNaN(parsed) && parsed >= 0;
+            },
+            {
+                error: "Inserisci un importo valido e positivo.",
+            },
+        )
+        .refine(
+            (val: string) => {
+                const normalized = val.replaceAll(".", "").replace(",", ".");
+                const [integer, decimal] = normalized.split(".") as [string, string | undefined];
+
+                const isIntegerValid = integer.length <= TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS;
+                const isDecimalValid = decimal ? decimal.length <= TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS : true;
+
+                return isIntegerValid && isDecimalValid;
+            },
+            {
+                error: "Inserisci un importo uguale o inferiore a €999.999.999,99.",
+            },
+        ),
     description: z.string().min(1, { error: "Inserisci una descrizione." }).max(1000, { error: "La descrizione non deve superare i 100 caratteri." }),
     type: z.enum(transactionTypes, { error: "Seleziona un tipo di transazione valido" }),
 });
@@ -83,7 +99,7 @@ export function NewTransactionForm() {
         const data = {
             ...raw,
             transactionAt: raw.transactionAt,
-            amount: parseFloat(raw.amount.replace(".", "").replace(",", ".")),
+            amount: parseFloat(raw.amount.replaceAll(".", "").replace(",", ".")),
             description: capitalize(raw.description.trim()),
         };
 
@@ -107,11 +123,17 @@ export function NewTransactionForm() {
         // Remove any invalid characters (keep only digits and comma)
         const cleaned = value.replace(/[^0-9,]/g, "");
 
-        // Ensure only one comma
         const parts = cleaned.split(",");
         let result = parts[0];
+
+        // truncate input to max allowed
+        if (result.length > TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS) {
+            result = result.substring(0, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS);
+        }
+
+        // Ensure only one comma
         if (parts.length > 1) {
-            result += "," + parts[1].substring(0, 2); // Max 2 decimal places
+            result += "," + parts[1].substring(0, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS); // truncate to max decimal places
         }
 
         if (result !== value) {

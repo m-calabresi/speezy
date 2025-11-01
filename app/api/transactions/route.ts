@@ -51,7 +51,10 @@ export const POST = auth(async (request) => {
     const data = await request.json();
     const schema = z.strictObject({
         transactionAt: z.string().pipe(z.coerce.date({ error: "Seleziona la data della transazione." })),
-        amount: z.number({ error: "Inserisci un importo valido." }).positive({ error: "Inserisci un importo positivo." }),
+        amount: z
+            .number({ error: "Inserisci un importo valido." })
+            .positive({ error: "Inserisci un importo positivo." })
+            .lte(999999999.99, { error: "Inserisci un importo uguale o inferiore a €999.999.999,99." }),
         description: z.string().min(1, { error: "Inserisci una descrizione." }).max(100, { error: "La descrizione non deve superare i 100 caratteri." }),
         type: z.enum(transactionTypes, { error: "Seleziona un tipo di transazione valido" }),
     });

@@ -51,6 +51,7 @@
     - [x] Fix order of items is alphabetical for same `transactionAt` (consider moving to datetime).
     - [ ] Check if prefetch actually work.
     - [ ] Check error handling if error is thrown in `getTransactions()`.
+    - [ ] Fix description overflow in history.
 
 ## Commit SemVer
 

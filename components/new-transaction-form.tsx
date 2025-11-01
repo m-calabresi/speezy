@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { cn, formatCurrency, formatDate, formatTransaction } from "@/lib/utils";
+import { capitalize, cn, formatCurrency, formatDate, formatTransaction } from "@/lib/utils";
 import { addTransaction } from "@/queries/transactions";
 import { transactionTypes, type TransactionOption } from "@/types/transaction";
 
@@ -80,7 +80,7 @@ export function NewTransactionForm() {
             ...raw,
             transactionAt: raw.transactionAt,
             amount: parseFloat(raw.amount.replace(".", "").replace(",", ".")),
-            description: raw.description.trim(),
+            description: capitalize(raw.description.trim()),
         };
 
         try {

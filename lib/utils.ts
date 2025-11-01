@@ -42,3 +42,5 @@ export const formatTransaction = (type: TransactionType) => {
     };
     return formatMap[type];
 };
+
+export const capitalize = (str: string, locale: string = navigator.language) => str.replace(/^\p{CWU}/u, (char) => char.toLocaleUpperCase(locale));

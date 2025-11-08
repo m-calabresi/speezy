@@ -107,7 +107,7 @@ export function TransactionForm() {
             await addTransaction(data);
 
             form.reset();
-            toast.success(`${formatTransaction(raw.type)}!`);
+            toast.success(`${formatTransaction(raw.type, { action: "create" })}!`);
         } catch (error) {
             console.error(error);
 

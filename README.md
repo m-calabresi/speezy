@@ -22,8 +22,10 @@
     - [x] Add `not found` page
     - Add `history` page
         - [x] Progressively load more entries
+        - [ ] Add search by description
         - [ ] Add filters
-        - [ ] Add edit feature to entries
+        - [x] Add edit feature to entries
+        - [ ] Revalidate data after add/update.
     - [ ] Add `stats` page
 - Auth
     - [x] Implement app auth with `auth.js`
@@ -47,7 +49,7 @@
 - Bugs
     - [x] Fix layout shift on mobile for navbar (on scroll & on account modal open)
     - [x] Decide whether to fix navbar showing on top of keyboard when scrolling all the way down from an input text (is it really a bug?)
-    - [ ] Fix error ``Encountered two children with the same key, `c4ae3e7e-93b9-4973-b8cc-1b16b80ba621`.`` in History.
+    - [x] Fix error ``Encountered two children with the same key, `c4ae3e7e-93b9-4973-b8cc-1b16b80ba621`.`` in History.
     - [x] Fix order of items is alphabetical for same `transactionAt` (consider moving to datetime).
     - [ ] Check if prefetch actually work.
     - [ ] Check error handling if error is thrown in `getTransactions()`.

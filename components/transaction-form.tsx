@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { capitalize, cn, formatCurrency, formatDate, formatTransaction, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS } from "@/lib/utils";
+import { capitalize, formatCurrency, formatDate, formatTransaction, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS } from "@/lib/utils";
 import { addTransaction } from "@/queries/transactions";
 import { transactionTypes, type TransactionOption } from "@/types/transaction";
 
@@ -159,7 +159,7 @@ export function TransactionForm() {
                                     <FormControl>
                                         <Button
                                             variant={"outline"}
-                                            className={cn("w-full items-center justify-start pl-3 text-left font-normal")}>
+                                            className="w-full items-center justify-start pl-3 text-left font-normal">
                                             <CalendarIcon className="text-muted-foreground h-4 w-4" />
                                             {field.value ? formatDate(field.value, false) : <span>Pick a date</span>}
                                         </Button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, EuroIcon, HandCoinsIcon, PlusIcon, ShoppingBagIcon } from "lucide-react";
+import { CalendarIcon, CoinsIcon, EuroIcon, HandHelpingIcon, PlusIcon, ShoppingBagIcon } from "lucide-react";
 import type React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -10,15 +10,15 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { HandCoinsFlippedIcon } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { cn, formatCurrency, formatDate, formatExpense } from "@/lib/utils";
-import { expenseOptionTypes, type ExpenseOption } from "@/types/expenses";
+import { capitalize, cn, formatCurrency, formatDate, formatTransaction, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS } from "@/lib/utils";
+import { addTransaction } from "@/queries/transactions";
+import { transactionTypes, type TransactionOption } from "@/types/transaction";
 
-const expenseOptions: ExpenseOption[] = [
+const transactionOptions: TransactionOption[] = [
     {
         type: "expense",
         name: "Spesa",
@@ -35,57 +35,85 @@ const expenseOptions: ExpenseOption[] = [
         type: "lendPending",
         name: "Prestito",
         description: "Ho prestato denaro, mi deve ritornare.",
-        Icon: HandCoinsIcon,
+        Icon: HandHelpingIcon,
     },
     {
         type: "borrowPending",
         name: "Debito",
         description: "Ho chiesto un prestito, devo restituire denaro.",
-        Icon: HandCoinsFlippedIcon,
+        Icon: CoinsIcon,
     },
 ];
 
 const FormSchema = z.object({
-    transactionDate: z.date({
+    transactionAt: z.date({
         error: "Seleziona la data della transazione.",
     }),
-    amount: z.string().refine(
-        (val: string) => {
-            const normalized = val.replace(".", "").replace(",", ".");
-            const parsed = parseFloat(normalized);
+    amount: z
+        .string()
+        .refine(
+            (val: string) => {
+                const normalized = val.replaceAll(".", "").replace(",", ".");
+                const parsed = parseFloat(normalized);
 
-            return !isNaN(parsed) && parsed >= 0;
-        },
-        {
-            error: "Inserisci un importo valido e positivo.",
-        },
-    ),
+                return !isNaN(parsed) && parsed >= 0;
+            },
+            {
+                error: "Inserisci un importo valido e positivo.",
+            },
+        )
+        .refine(
+            (val: string) => {
+                const normalized = val.replaceAll(".", "").replace(",", ".");
+                const [integer, decimal] = normalized.split(".") as [string, string | undefined];
+
+                const isIntegerValid = integer.length <= TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS;
+                const isDecimalValid = decimal ? decimal.length <= TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS : true;
+
+                return isIntegerValid && isDecimalValid;
+            },
+            {
+                error: "Inserisci un importo uguale o inferiore a €999.999.999,99.",
+            },
+        ),
     description: z.string().min(1, { error: "Inserisci una descrizione." }).max(1000, { error: "La descrizione non deve superare i 100 caratteri." }),
-    type: z.enum(expenseOptionTypes, { error: "Seleziona un tipo di transazione valido" }),
+    type: z.enum(transactionTypes, { error: "Seleziona un tipo di transazione valido" }),
 });
 
 export function NewTransactionForm() {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema, undefined, { raw: true }),
         defaultValues: {
-            transactionDate: new Date(),
+            transactionAt: new Date(),
             amount: "",
             description: "",
             type: "expense",
         },
     });
 
-    function onSubmit(raw: z.infer<typeof FormSchema>) {
-        form.reset();
-        toast.success(`${formatExpense(raw.type)}!`);
+    async function onSubmit(raw: z.infer<typeof FormSchema>) {
+        // distinguish same day transactions by time
+        const now = new Date();
+        raw.transactionAt.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
 
         const data = {
             ...raw,
-            transactionDate: raw.transactionDate.toISOString().split("T")[0],
-            amount: parseFloat(raw.amount.replace(".", "").replace(",", ".")),
-            description: raw.description.trim(),
+            transactionAt: raw.transactionAt,
+            amount: parseFloat(raw.amount.replaceAll(".", "").replace(",", ".")),
+            description: capitalize(raw.description.trim()),
         };
-        console.log(data); // TODO: submit transaction
+
+        try {
+            await addTransaction(data);
+
+            form.reset();
+            toast.success(`${formatTransaction(raw.type)}!`);
+        } catch (error) {
+            console.error(error);
+
+            const message = typeof error === "string" ? error : "Si è verificato un problema, riprova.";
+            toast.error(message);
+        }
     }
 
     const handleInput = (e: React.FormEvent<HTMLInputElement>, onChange: (value: string) => void) => {
@@ -95,11 +123,17 @@ export function NewTransactionForm() {
         // Remove any invalid characters (keep only digits and comma)
         const cleaned = value.replace(/[^0-9,]/g, "");
 
-        // Ensure only one comma
         const parts = cleaned.split(",");
         let result = parts[0];
+
+        // truncate input to max allowed
+        if (result.length > TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS) {
+            result = result.substring(0, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS);
+        }
+
+        // Ensure only one comma
         if (parts.length > 1) {
-            result += "," + parts[1].substring(0, 2); // Max 2 decimal places
+            result += "," + parts[1].substring(0, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS); // truncate to max decimal places
         }
 
         if (result !== value) {
@@ -113,10 +147,10 @@ export function NewTransactionForm() {
         <Form {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8 md:mx-auto md:grid md:max-w-4xl md:grid-cols-2 md:grid-rows-[auto_auto_auto_auto_auto] md:gap-4 md:space-y-4">
+                className="space-y-8 pt-3 pb-5 md:mx-auto md:grid md:max-w-4xl md:grid-cols-2 md:grid-rows-[auto_auto_auto_auto_auto] md:gap-4 md:space-y-4">
                 <FormField
                     control={form.control}
-                    name="transactionDate"
+                    name="transactionAt"
                     render={({ field }) => (
                         <FormItem className="flex flex-col md:col-start-1 md:row-start-1">
                             <FormLabel>Date</FormLabel>
@@ -163,7 +197,7 @@ export function NewTransactionForm() {
                                         onChange={onChange}
                                         onBlur={(e) => {
                                             const raw = parseFloat(e.target.value.replace(/[^0-9,]/g, "").replace(",", "."));
-                                            const formatted = isNaN(raw) ? "" : formatCurrency(raw, false, false);
+                                            const formatted = isNaN(raw) ? "" : formatCurrency(raw, { displayCurrencySign: false, displayCurrencySymbol: false });
 
                                             onChange(formatted);
                                             onBlur();
@@ -211,11 +245,11 @@ export function NewTransactionForm() {
                                         if (val) field.onChange(val); // prevent unselect
                                     }}
                                     className="grid w-full grid-cols-2 gap-4">
-                                    {expenseOptions.map(({ type, name, description, Icon }) => (
+                                    {transactionOptions.map(({ type, name, description, Icon }) => (
                                         <ToggleGroupItem
                                             key={type}
                                             value={type}
-                                            className="last-two:h-30 last-two:[&>svg]:size-4 last-two:[&>svg]:text-muted-foreground/50 last-two:[&>p]:text-muted-foreground/50 last-two:[&>h3]:mt-0 last-two:text-sm last-two:[&>h3]:text-muted-foreground/70 last-two:justify-start h-50 flex-col items-center justify-center rounded border p-2 text-lg">
+                                            className="last-two:h-30 last-two:[&>svg]:size-4 last-two:[&>svg]:text-muted-foreground/50 last-two:[&>p]:text-muted-foreground/50 last-two:[&>h3]:mt-0 last-two:text-sm last-two:[&>h3]:text-muted-foreground/70 last-two:justify-start border-primary hover:ring-primary data-[state=on]:bg-primary data-[state=on]:text-foreground h-50 flex-col items-center justify-center rounded border p-2 text-lg hover:bg-transparent hover:ring-4 data-[state=on]:hover:ring-transparent">
                                             <Icon className="text-muted-foreground size-8" />
                                             <h3 className="text-foreground mt-2 font-semibold">{name}</h3>
                                             <p className="text-muted-foreground -mt-3 text-sm font-light text-wrap">{description}</p>

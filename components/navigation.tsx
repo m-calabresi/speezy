@@ -3,7 +3,7 @@
 import { ChartPie, History, Plus } from "lucide-react";
 import Link from "next/link";
 
-import useKeyboardOpen from "@/hooks/useKeyboardOpen";
+import useKeyboardOpen from "@/hooks/use-keyboard-open";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 

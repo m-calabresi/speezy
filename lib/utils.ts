@@ -1,12 +1,20 @@
-import type { ExpenseOptionType } from "@/types/expenses";
+import type { TransactionType } from "@/types/transaction";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+
+export const TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS = 9;
+export const TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS = 2;
+
+type FormatCurrencyProps = {
+    displayCurrencySign?: boolean;
+    displayCurrencySymbol?: boolean;
+};
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-export const formatCurrency = (currency: number, displayCurrencySign: boolean = true, displayCurrencySymbol: boolean = true) => {
+export const formatCurrency = (currency: number, { displayCurrencySign, displayCurrencySymbol }: FormatCurrencyProps = { displayCurrencySign: true, displayCurrencySymbol: true }) => {
     const formatted = new Intl.NumberFormat("it-IT", {
         style: "currency",
         currency: "EUR",
@@ -26,8 +34,8 @@ export const formatDate = (date: Date, dynamic: boolean = true) => {
     });
 };
 
-export const formatExpense = (expense: ExpenseOptionType) => {
-    const formatMap: { [key in ExpenseOptionType]: string } = {
+export const formatTransaction = (type: TransactionType) => {
+    const formatMap: { [key in TransactionType]: string } = {
         expense: "Spesa aggiunta",
         earning: "Entrata aggiunta",
         borrowFulfill: "Debito aggiunto",
@@ -35,5 +43,7 @@ export const formatExpense = (expense: ExpenseOptionType) => {
         lendFulfill: "Prestito aggiunto",
         lendPending: "Prestito aggiunto",
     };
-    return formatMap[expense];
+    return formatMap[type];
 };
+
+export const capitalize = (str: string, locale: string = navigator.language) => str.replace(/^\p{CWU}/u, (char) => char.toLocaleUpperCase(locale));

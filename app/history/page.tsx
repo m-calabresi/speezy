@@ -1,12 +1,11 @@
-import { CalendarIcon, CreditCardIcon } from "lucide-react";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import type { Metadata } from "next";
 
-import { getTransactions } from "@/actions/transactions";
-import ReleaseInfo from "@/components/release-info";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { cn, formatCurrency, formatDate } from "@/lib/utils";
+import { TransactionList } from "@/app/history/transaction-list";
+import { getQueryClient } from "@/lib/get-query-client";
 import { PageProvider } from "@/providers/page-provider";
+import { getTransactions } from "@/queries/transactions";
+import type { Paginated } from "@/types/pagination";
 import type { Transaction } from "@/types/transaction";
 
 export const metadata: Metadata = {
@@ -15,56 +14,25 @@ export const metadata: Metadata = {
     keywords: ["speezy", "history", "transactions", "expense", "tracking"],
 };
 
-export const dynamic = "force-dynamic"; // prevents caching of `getTransactions()`. TODO: make route actually dynamic
-
-function TransactionItem({ item }: { item: Transaction }) {
-    const [integerAmount, decimalAmount] = formatCurrency(item.amount).split(",");
-    const isExpense = item.amount < 0;
-    return (
-        <Card>
-            <CardContent className="grid grid-cols-[min-content_auto_min-content] grid-rows-[min-content_auto] items-start gap-x-4 gap-y-2">
-                <div className="bg-background dark:bg-card text-muted-foreground row-span-2 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border">
-                    <CreditCardIcon className="h-5 w-5" />
-                </div>
-                <h3 className="text-card-foreground text-lg leading-tight font-medium">{item.description}</h3>
-                <div className={cn("flex shrink-0 flex-row items-start justify-end gap-0.5 justify-self-end", isExpense ? "text-card-foreground" : "text-success-foreground")}>
-                    <span className="text-xl font-bold">{integerAmount}</span>
-                    <span className="text-sm font-medium">{decimalAmount}</span>
-                </div>
-                <div className="col-span-2 flex flex-row items-center justify-start gap-2">
-                    <CalendarIcon className="text-muted-foreground mb-1 h-4 w-4" />
-                    <span className="text-muted-foreground text-sm font-medium">{formatDate(item.transactionAt)}</span>
-                    {item.isLoan && (
-                        <Badge
-                            variant="secondary"
-                            className="rounded-full">
-                            Prestito
-                        </Badge>
-                    )}
-                </div>
-            </CardContent>
-        </Card>
-    );
-}
-
 export default async function History() {
-    const transactions = await getTransactions(); // TODO: move this after auth
+    const queryClient = getQueryClient();
+
+    await queryClient.prefetchInfiniteQuery({
+        queryKey: ["transactions"],
+        queryFn: ({ pageParam }) => getTransactions(pageParam),
+        initialPageParam: 0,
+        getNextPageParam: (lastPage: Paginated<Transaction[]>) => lastPage.nextCursor,
+    });
 
     return (
-        <PageProvider path="/history">
-            <article className="h-[1000px] w-full">
-                {transactions.length !== 0 && (
-                    <ul className="divide-background w-full divide-y-8">
-                        {transactions.map((t) => (
-                            <li key={t.id}>
-                                <TransactionItem item={t} />
-                            </li>
-                        ))}
-                    </ul>
-                )}
-                {transactions.length === 0 && <span>No Transactions</span>}
-            </article>
-            <ReleaseInfo />
-        </PageProvider>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <PageProvider
+                path="/history"
+                className="mb-0 h-full w-full overflow-hidden md:mb-0 lg:mb-0">
+                <article className="h-full w-full pl-0 xl:pl-32">
+                    <TransactionList />
+                </article>
+            </PageProvider>
+        </HydrationBoundary>
     );
 }

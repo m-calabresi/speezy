@@ -16,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { capitalize, formatCurrency, formatDate, formatTransaction, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS } from "@/lib/utils";
 import { addTransaction } from "@/queries/transactions";
-import { transactionTypes, type TransactionOption } from "@/types/transaction";
+import { transactionTypes, type Transaction, type TransactionOption } from "@/types/transaction";
 
 const transactionOptions: TransactionOption[] = [
     {
@@ -96,7 +96,7 @@ export function TransactionForm() {
         const now = new Date();
         raw.transactionAt.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
 
-        const data = {
+        const data: Omit<Transaction, "id"> = {
             ...raw,
             transactionAt: raw.transactionAt,
             amount: parseFloat(raw.amount.replaceAll(".", "").replace(",", ".")),

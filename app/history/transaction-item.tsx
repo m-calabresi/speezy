@@ -2,15 +2,27 @@
 
 import { CalendarIcon, CheckIcon, CircleIcon, CoinsIcon, EllipsisVerticalIcon, EuroIcon, HandHelpingIcon, PencilIcon, ShoppingBagIcon, Trash2Icon, type LucideIcon } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { EditTransactionForm } from "@/app/history/edit-transactin-form";
-import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { cn, formatCurrency, formatDate } from "@/lib/utils";
+import { cn, formatCurrency, formatDate, formatTransaction } from "@/lib/utils";
+import { deleteTransaction } from "@/queries/transactions";
 import type { Transaction, TransactionType } from "@/types/transaction";
 
 export const transactionTypeOptions: { [key in TransactionType]: { name: string; isNegative: boolean; isPending: boolean | undefined; Icon: LucideIcon } } = {
@@ -67,44 +79,70 @@ export function TransactionItem({ item }: { item: Transaction }) {
                     <span className="text-xl font-bold">{integerAmount}</span>
                     <span className="text-sm font-medium">,{decimalAmount}</span>
                 </div>
-                <Dialog
-                    open={dialogOpen}
-                    onOpenChange={setDialogOpen}>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button
-                                variant={"ghost"}
-                                size={"icon"}>
-                                <EllipsisVerticalIcon className="size-5" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                            align="end"
-                            className="min-w-60">
-                            <DialogTrigger asChild>
-                                <DropdownMenuItem className="text-md gap-5 py-3">
-                                    <PencilIcon className="size-5" />
-                                    Edit
-                                </DropdownMenuItem>
-                            </DialogTrigger>
-                            <AlertDialogTrigger asChild>
-                                <DropdownMenuItem className="text-md gap-5 py-3">
-                                    <Trash2Icon className="size-5" />
-                                    Delete
-                                </DropdownMenuItem>
-                            </AlertDialogTrigger>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                    <DialogContent className="scrollbar-hidden max-h-screen overflow-y-auto sm:max-w-lg">
-                        <DialogHeader>
-                            <DialogTitle className="text-center">Edit transaction</DialogTitle>
-                        </DialogHeader>
-                        <EditTransactionForm
-                            item={item}
-                            onEditSuccess={() => setDialogOpen(false)}
-                        />
-                    </DialogContent>
-                </Dialog>
+                <AlertDialog>
+                    <Dialog
+                        open={dialogOpen}
+                        onOpenChange={setDialogOpen}>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    variant={"ghost"}
+                                    size={"icon"}>
+                                    <EllipsisVerticalIcon className="size-5" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent
+                                align="end"
+                                className="min-w-60">
+                                <DialogTrigger asChild>
+                                    <DropdownMenuItem className="text-md gap-5 py-3">
+                                        <PencilIcon className="size-5" />
+                                        Edit
+                                    </DropdownMenuItem>
+                                </DialogTrigger>
+                                <AlertDialogTrigger asChild>
+                                    <DropdownMenuItem className="text-md gap-5 py-3">
+                                        <Trash2Icon className="size-5" />
+                                        Delete
+                                    </DropdownMenuItem>
+                                </AlertDialogTrigger>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                        <DialogContent className="scrollbar-hidden max-h-screen overflow-y-auto sm:max-w-lg">
+                            <DialogHeader>
+                                <DialogTitle className="text-center">Edit transaction</DialogTitle>
+                            </DialogHeader>
+                            <EditTransactionForm
+                                item={item}
+                                onEditSuccess={() => setDialogOpen(false)}
+                            />
+                        </DialogContent>
+                    </Dialog>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Delete transaction?</AlertDialogTitle>
+                            <AlertDialogDescription>The transaction will be permanently deleted. This action cannot be undone.</AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                                onClick={async () => {
+                                    try {
+                                        await deleteTransaction(item.id);
+
+                                        toast.success(`${formatTransaction(item.type, { action: "delete" })}!`);
+                                    } catch (error) {
+                                        console.error(error);
+
+                                        const message = typeof error === "string" ? error : "Si è verificato un problema, riprova.";
+                                        toast.error(message);
+                                    }
+                                }}>
+                                Delete Transaction
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
                 <div
                     className={cn(
                         "col-span-2 flex flex-row items-center justify-start gap-2",

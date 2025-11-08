@@ -45,3 +45,19 @@ export const POST = auth(async (request: NextAuthRequest, { params }: { params: 
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 });
+
+export const DELETE = auth(async (request: NextAuthRequest, { params }: { params: Promise<{ id: string }> }) => {
+    if (!request.auth) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+
+    const userId = "292a485f-a56a-4938-8f1a-bbbbbbbbbbb2"; // TODO: retrieve from request.auth
+    const { id: transactionId } = await params;
+    try {
+        await sql<RawTransaction[]>`
+           DELETE FROM transaction
+            WHERE user_id=${userId} AND id=${transactionId};`;
+        return NextResponse.json({ message: "Transaction deleted" }, { status: 200 });
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    }
+});

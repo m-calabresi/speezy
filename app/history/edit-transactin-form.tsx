@@ -1,0 +1,252 @@
+// TODO: evaluate to merge this with `transaction-form.tsx`
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CalendarIcon, EuroIcon, PlusIcon } from "lucide-react";
+import type React from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+
+import { transactionTypeOptions } from "@/app/history/transaction-item";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Textarea } from "@/components/ui/textarea";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { capitalize, formatCurrency, formatDate, formatTransaction, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS } from "@/lib/utils";
+import { updateTransaction } from "@/queries/transactions";
+import { transactionTypes, type Transaction } from "@/types/transaction";
+
+type EditTransactionFormProps = {
+    item: Transaction;
+    onEditSuccess?: () => void;
+};
+
+const FormSchema = z.object({
+    transactionAt: z.date({
+        error: "Seleziona la data della transazione.",
+    }),
+    amount: z
+        .string()
+        .refine(
+            (val: string) => {
+                const normalized = val.replaceAll(".", "").replace(",", ".");
+                const parsed = parseFloat(normalized);
+
+                return !isNaN(parsed) && parsed >= 0;
+            },
+            {
+                error: "Inserisci un importo valido e positivo.",
+            },
+        )
+        .refine(
+            (val: string) => {
+                const normalized = val.replaceAll(".", "").replace(",", ".");
+                const [integer, decimal] = normalized.split(".") as [string, string | undefined];
+
+                const isIntegerValid = integer.length <= TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS;
+                const isDecimalValid = decimal ? decimal.length <= TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS : true;
+
+                return isIntegerValid && isDecimalValid;
+            },
+            {
+                error: "Inserisci un importo uguale o inferiore a €999.999.999,99.",
+            },
+        ),
+    description: z.string().min(1, { error: "Inserisci una descrizione." }).max(1000, { error: "La descrizione non deve superare i 100 caratteri." }),
+    type: z.enum(transactionTypes, { error: "Seleziona un tipo di transazione valido" }),
+});
+
+export function EditTransactionForm({ item, onEditSuccess }: EditTransactionFormProps) {
+    const form = useForm<z.infer<typeof FormSchema>>({
+        resolver: zodResolver(FormSchema, undefined, { raw: true }),
+        defaultValues: {
+            transactionAt: item.transactionAt,
+            amount: formatCurrency(item.amount, { displayCurrencySign: false, displayCurrencySymbol: false }),
+            description: item.description,
+            type: item.type,
+        },
+    });
+
+    async function onSubmit(raw: z.infer<typeof FormSchema>) {
+        const data: Transaction = {
+            ...raw,
+            id: item.id,
+            transactionAt: raw.transactionAt,
+            amount: parseFloat(raw.amount.replaceAll(".", "").replace(",", ".")),
+            description: capitalize(raw.description.trim()),
+        };
+
+        try {
+            await updateTransaction(data);
+
+            onEditSuccess?.();
+            toast.success(`${formatTransaction(raw.type, { action: "update" })}!`);
+        } catch (error) {
+            console.error(error);
+
+            const message = typeof error === "string" ? error : "Si è verificato un problema, riprova.";
+            toast.error(message);
+        }
+    }
+
+    const handleInput = (e: React.FormEvent<HTMLInputElement>, onChange: (value: string) => void) => {
+        const input = e.target as HTMLInputElement;
+        const value = input.value;
+
+        // Remove any invalid characters (keep only digits and comma)
+        const cleaned = value.replace(/[^0-9,]/g, "");
+
+        const parts = cleaned.split(",");
+        let result = parts[0];
+
+        // truncate input to max allowed
+        if (result.length > TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS) {
+            result = result.substring(0, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS);
+        }
+
+        // Ensure only one comma
+        if (parts.length > 1) {
+            result += "," + parts[1].substring(0, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS); // truncate to max decimal places
+        }
+
+        if (result !== value) {
+            input.value = result;
+            // Trigger form update
+            onChange(result);
+        }
+    };
+
+    return (
+        <Form {...form}>
+            <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="w-full space-y-8 pt-3 pb-5">
+                <FormField
+                    control={form.control}
+                    name="transactionAt"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                            <FormLabel>Date</FormLabel>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <FormControl>
+                                        <Button
+                                            variant={"outline"}
+                                            className="w-full items-center justify-start pl-3 text-left font-normal">
+                                            <CalendarIcon className="text-muted-foreground h-4 w-4" />
+                                            {field.value ? formatDate(field.value, false) : <span>Pick a date</span>}
+                                        </Button>
+                                    </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent
+                                    className="w-auto p-0"
+                                    align="start">
+                                    <Calendar
+                                        mode="single"
+                                        selected={field.value}
+                                        onSelect={field.onChange}
+                                    />
+                                </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="amount"
+                    render={({ field: { onChange, onBlur, ...field } }) => (
+                        <FormItem>
+                            <FormLabel>Amount</FormLabel>
+                            <FormControl>
+                                <div className="relative">
+                                    <Input
+                                        placeholder="0.00"
+                                        step="0.01"
+                                        inputMode="decimal"
+                                        type="text"
+                                        className="w-full ps-9"
+                                        onInput={(e) => handleInput(e, onChange)}
+                                        onChange={onChange}
+                                        onBlur={(e) => {
+                                            const raw = parseFloat(e.target.value.replace(/[^0-9,]/g, "").replace(",", "."));
+                                            const formatted = isNaN(raw) ? "" : formatCurrency(raw, { displayCurrencySign: false, displayCurrencySymbol: false });
+
+                                            onChange(formatted);
+                                            onBlur();
+                                        }}
+                                        {...field}
+                                    />
+                                    <EuroIcon className="text-muted-foreground absolute start-0 top-1/2 ms-3 h-4 w-4 -translate-y-1/2" />
+                                </div>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Descrizione</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    placeholder="Descrivi la transazione"
+                                    className="resize-none"
+                                    maxLength={100}
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormDescription>{field.value.length}/100 caratteri</FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="type"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Tipo</FormLabel>
+                            <FormControl>
+                                <ToggleGroup
+                                    {...field}
+                                    type="single"
+                                    value={field.value}
+                                    onValueChange={(val) => {
+                                        if (val) field.onChange(val); // prevent unselect
+                                    }}
+                                    className="flex w-full flex-wrap items-start justify-start gap-3">
+                                    {Object.entries(transactionTypeOptions).map(([type, { name, Icon }]) => (
+                                        <ToggleGroupItem
+                                            key={type}
+                                            value={type}
+                                            asChild
+                                            className="flex-none rounded-full first:rounded-full last:rounded-full">
+                                            <Badge className="data-[state=on]:text-foreground bg-accent/20 flex flex-row items-center justify-center gap-2 px-3 hover:cursor-pointer">
+                                                <Icon className="text-muted-foreground" />
+                                                <h3 className="text-foreground font-normal">{name}</h3>
+                                            </Badge>
+                                        </ToggleGroupItem>
+                                    ))}
+                                </ToggleGroup>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <Button
+                    type="submit"
+                    className="h-14 w-full">
+                    <PlusIcon />
+                    Update
+                </Button>
+            </form>
+        </Form>
+    );
+}

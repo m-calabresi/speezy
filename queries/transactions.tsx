@@ -1,5 +1,5 @@
 import type { Paginated } from "@/types/pagination";
-import type { ApiTransaction, NewTransaction, Transaction } from "@/types/transaction";
+import type { ApiTransaction, Transaction } from "@/types/transaction";
 
 export async function getTransactions(pageParam: number = 0) {
     const response = await fetch(`/api/transactions?cursor=${pageParam}`);
@@ -11,10 +11,25 @@ export async function getTransactions(pageParam: number = 0) {
     return { nextCursor: dataOrError.nextCursor, content: transactions } as Paginated<Transaction[]>;
 }
 
-export async function addTransaction(transaction: NewTransaction) {
+export async function addTransaction(transaction: Omit<Transaction, "id">) {
     const response = await fetch("/api/transactions", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(transaction) });
     const transactionOrError = await response.json();
 
     if (response.status !== 200) throw transactionOrError.message as string;
     return { ...(transactionOrError as ApiTransaction), transactionAt: new Date((transactionOrError as ApiTransaction).transactionAt) } as Transaction;
+}
+
+export async function updateTransaction(transaction: Transaction) {
+    const response = await fetch(`/api/transactions/${transaction.id}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(transaction) });
+    const transactionOrError = await response.json();
+
+    if (response.status !== 200) throw transactionOrError.message as string;
+    return { ...(transactionOrError as ApiTransaction), transactionAt: new Date((transactionOrError as ApiTransaction).transactionAt) } as Transaction;
+}
+
+export async function deleteTransaction(id: Transaction["id"]) {
+    const response = await fetch(`/api/transactions/${id}`, { method: "DELETE" });
+    const successOrError = await response.json();
+
+    if (response.status !== 200) throw successOrError.message as string;
 }

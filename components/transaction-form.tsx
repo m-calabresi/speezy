@@ -14,9 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { capitalize, cn, formatCurrency, formatDate, formatTransaction, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS } from "@/lib/utils";
+import { capitalize, formatCurrency, formatDate, formatTransaction, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS } from "@/lib/utils";
 import { addTransaction } from "@/queries/transactions";
-import { transactionTypes, type TransactionOption } from "@/types/transaction";
+import { transactionTypes, type Transaction, type TransactionOption } from "@/types/transaction";
 
 const transactionOptions: TransactionOption[] = [
     {
@@ -80,7 +80,7 @@ const FormSchema = z.object({
     type: z.enum(transactionTypes, { error: "Seleziona un tipo di transazione valido" }),
 });
 
-export function NewTransactionForm() {
+export function TransactionForm() {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema, undefined, { raw: true }),
         defaultValues: {
@@ -96,7 +96,7 @@ export function NewTransactionForm() {
         const now = new Date();
         raw.transactionAt.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
 
-        const data = {
+        const data: Omit<Transaction, "id"> = {
             ...raw,
             transactionAt: raw.transactionAt,
             amount: parseFloat(raw.amount.replaceAll(".", "").replace(",", ".")),
@@ -107,7 +107,7 @@ export function NewTransactionForm() {
             await addTransaction(data);
 
             form.reset();
-            toast.success(`${formatTransaction(raw.type)}!`);
+            toast.success(`${formatTransaction(raw.type, { action: "create" })}!`);
         } catch (error) {
             console.error(error);
 
@@ -159,7 +159,7 @@ export function NewTransactionForm() {
                                     <FormControl>
                                         <Button
                                             variant={"outline"}
-                                            className={cn("w-full items-center justify-start pl-3 text-left font-normal")}>
+                                            className="w-full items-center justify-start pl-3 text-left font-normal">
                                             <CalendarIcon className="text-muted-foreground h-4 w-4" />
                                             {field.value ? formatDate(field.value, false) : <span>Pick a date</span>}
                                         </Button>

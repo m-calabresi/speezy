@@ -34,14 +34,41 @@ export const formatDate = (date: Date, dynamic: boolean = true) => {
     });
 };
 
-export const formatTransaction = (type: TransactionType) => {
+type Action = "create" | "update" | "delete";
+
+const formatFemaleAction = (action: Action) => {
+    switch (action) {
+        case "create":
+            return "aggiunta";
+        case "update":
+            return "aggiornata";
+        case "delete":
+            return "rimossa";
+    }
+};
+
+const formatMaleAction = (action: Action) => {
+    switch (action) {
+        case "create":
+            return "aggiunto";
+        case "update":
+            return "aggiornato";
+        case "delete":
+            return "rimosso";
+    }
+};
+
+export const formatTransaction = (type: TransactionType, { action }: { action: Action }) => {
+    const maleAction = formatMaleAction(action);
+    const femaleAction = formatFemaleAction(action);
+
     const formatMap: { [key in TransactionType]: string } = {
-        expense: "Spesa aggiunta",
-        earning: "Entrata aggiunta",
-        borrowFulfill: "Debito aggiunto",
-        borrowPending: "Debito aggiunto",
-        lendFulfill: "Prestito aggiunto",
-        lendPending: "Prestito aggiunto",
+        expense: `Spesa ${femaleAction}`,
+        earning: `Entrata ${femaleAction}`,
+        borrowFulfill: `Debito ${maleAction}`,
+        borrowPending: `Debito ${maleAction}`,
+        lendFulfill: `Prestito ${maleAction}`,
+        lendPending: `Prestito ${maleAction}`,
     };
     return formatMap[type];
 };

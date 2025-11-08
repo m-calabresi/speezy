@@ -1,13 +1,19 @@
-import { CalendarIcon, CheckIcon, CircleIcon, CoinsIcon, EllipsisVerticalIcon, EuroIcon, HandHelpingIcon, PencilIcon, ShoppingBagIcon, Trash2Icon, type LucideIcon } from "lucide-react";
+"use client";
 
+import { CalendarIcon, CheckIcon, CircleIcon, CoinsIcon, EllipsisVerticalIcon, EuroIcon, HandHelpingIcon, PencilIcon, ShoppingBagIcon, Trash2Icon, type LucideIcon } from "lucide-react";
+import { useState } from "react";
+
+import { EditTransactionForm } from "@/app/history/edit-transactin-form";
+import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn, formatCurrency, formatDate } from "@/lib/utils";
 import type { Transaction, TransactionType } from "@/types/transaction";
 
-const transactionTypeOptions: { [key in TransactionType]: { name: string; isNegative: boolean; isPending: boolean | undefined; Icon: LucideIcon } } = {
+export const transactionTypeOptions: { [key in TransactionType]: { name: string; isNegative: boolean; isPending: boolean | undefined; Icon: LucideIcon } } = {
     expense: { name: "Spesa", isNegative: true, isPending: undefined, Icon: ShoppingBagIcon },
     earning: { name: "Entrata", isNegative: false, isPending: undefined, Icon: EuroIcon },
     lendPending: { name: "Hai prestato", isNegative: true, isPending: true, Icon: HandHelpingIcon },
@@ -17,6 +23,8 @@ const transactionTypeOptions: { [key in TransactionType]: { name: string; isNega
 };
 
 export function TransactionItem({ item }: { item: Transaction }) {
+    const [dialogOpen, setDialogOpen] = useState(false);
+
     const option = transactionTypeOptions[item.type];
 
     const amount = option.isNegative ? item.amount * -1 : item.amount;
@@ -59,27 +67,44 @@ export function TransactionItem({ item }: { item: Transaction }) {
                     <span className="text-xl font-bold">{integerAmount}</span>
                     <span className="text-sm font-medium">,{decimalAmount}</span>
                 </div>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button
-                            variant={"ghost"}
-                            size={"icon"}>
-                            <EllipsisVerticalIcon className="size-5" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                        align="end"
-                        className="min-w-60">
-                        <DropdownMenuItem className="text-md gap-5 py-3">
-                            <PencilIcon className="size-5" />
-                            Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="text-md gap-5 py-3">
-                            <Trash2Icon className="size-5" />
-                            Delete
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <Dialog
+                    open={dialogOpen}
+                    onOpenChange={setDialogOpen}>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button
+                                variant={"ghost"}
+                                size={"icon"}>
+                                <EllipsisVerticalIcon className="size-5" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent
+                            align="end"
+                            className="min-w-60">
+                            <DialogTrigger asChild>
+                                <DropdownMenuItem className="text-md gap-5 py-3">
+                                    <PencilIcon className="size-5" />
+                                    Edit
+                                </DropdownMenuItem>
+                            </DialogTrigger>
+                            <AlertDialogTrigger asChild>
+                                <DropdownMenuItem className="text-md gap-5 py-3">
+                                    <Trash2Icon className="size-5" />
+                                    Delete
+                                </DropdownMenuItem>
+                            </AlertDialogTrigger>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                    <DialogContent className="scrollbar-hidden max-h-screen overflow-y-auto sm:max-w-lg">
+                        <DialogHeader>
+                            <DialogTitle className="text-center">Edit transaction</DialogTitle>
+                        </DialogHeader>
+                        <EditTransactionForm
+                            item={item}
+                            onEditSuccess={() => setDialogOpen(false)}
+                        />
+                    </DialogContent>
+                </Dialog>
                 <div
                     className={cn(
                         "col-span-2 flex flex-row items-center justify-start gap-2",

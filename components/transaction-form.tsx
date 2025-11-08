@@ -80,7 +80,7 @@ const FormSchema = z.object({
     type: z.enum(transactionTypes, { error: "Seleziona un tipo di transazione valido" }),
 });
 
-export function NewTransactionForm() {
+export function TransactionForm() {
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema, undefined, { raw: true }),
         defaultValues: {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { NewTransactionForm } from "@/components/new-transaction-form";
+import { TransactionForm } from "@/components/transaction-form";
 import { PageProvider } from "@/providers/page-provider";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Home() {
     return (
         <PageProvider path="/">
-            <NewTransactionForm />
+            <TransactionForm />
         </PageProvider>
     );
 }

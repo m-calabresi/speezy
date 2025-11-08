@@ -3,8 +3,8 @@
   "version": "v0.0.1-alpha.2",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "emu": "AUTH_URL=http://192.168.1.200:3000 next dev --turbopack --hostname 0.0.0.0 --port 3000",
+    "dev": "next dev",
+    "emu": "AUTH_URL=http://192.168.1.200:3000 next dev --hostname 0.0.0.0 --port 3000",
     "build": "eslint . && next build",
     "start": "next start",
     "lint": "eslint ."
@@ -19,7 +19,6 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-toggle": "^1.1.10",
     "@radix-ui/react-toggle-group": "^1.1.11",
-    "babel-plugin-react-compiler": "^19.1.0-rc.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "jwt-decode": "^4.0.0",

@@ -1,8 +1,9 @@
-import { CalendarIcon, CheckIcon, CircleIcon, CoinsIcon, EllipsisVerticalIcon, EuroIcon, HandHelpingIcon, ShoppingBagIcon, type LucideIcon } from "lucide-react";
+import { CalendarIcon, CheckIcon, CircleIcon, CoinsIcon, EllipsisVerticalIcon, EuroIcon, HandHelpingIcon, PencilIcon, ShoppingBagIcon, Trash2Icon, type LucideIcon } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn, formatCurrency, formatDate } from "@/lib/utils";
 import type { Transaction, TransactionType } from "@/types/transaction";
 
@@ -58,11 +59,27 @@ export function TransactionItem({ item }: { item: Transaction }) {
                     <span className="text-xl font-bold">{integerAmount}</span>
                     <span className="text-sm font-medium">,{decimalAmount}</span>
                 </div>
-                <Button
-                    variant={"ghost"}
-                    size={"icon"}>
-                    <EllipsisVerticalIcon className="size-5" />
-                </Button>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button
+                            variant={"ghost"}
+                            size={"icon"}>
+                            <EllipsisVerticalIcon className="size-5" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                        align="end"
+                        className="min-w-60">
+                        <DropdownMenuItem className="text-md gap-5 py-3">
+                            <PencilIcon className="size-5" />
+                            Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="text-md gap-5 py-3">
+                            <Trash2Icon className="size-5" />
+                            Delete
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
                 <div
                     className={cn(
                         "col-span-2 flex flex-row items-center justify-start gap-2",

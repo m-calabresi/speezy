@@ -18,7 +18,9 @@ export function TransactionList() {
     });
 
     const rootRef = useRef<HTMLDivElement>(null);
-    const { ref, inView } = useInView({ root: rootRef.current, threshold: 0, rootMargin: "500px 0px" });
+
+    // BUG: see https://github.com/facebook/react/issues/34775
+    const { ref, inView } = useInView({ root: rootRef.current, threshold: 0, rootMargin: "500px 0px" }); // eslint-disable-line react-hooks/refs
 
     useEffect(() => {
         if (!inView || isFetching || isFetchingNextPage || !hasNextPage) return;

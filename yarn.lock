@@ -7551,7 +7551,7 @@ __metadata:
     sonner: "npm:^2.0.7"
     tailwind-merge: "npm:^3.4.0"
     tailwindcss: "npm:^4.1.17"
-    tailwindcss-safe-area: "npm:^1.1.0"
+    tailwindcss-safe-area: "npm:^1.2.0"
     tw-animate-css: "npm:^1.4.0"
     typescript: "npm:^5.9.3"
     vercel: "npm:^48.10.6"
@@ -7810,12 +7810,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss-safe-area@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "tailwindcss-safe-area@npm:1.1.0"
+"tailwindcss-safe-area@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "tailwindcss-safe-area@npm:1.2.0"
   peerDependencies:
     tailwindcss: ^4.0.0
-  checksum: 10c0/93e48186ebb06f7034f5a01160abad916fcce90f331017d7f350d7de5fd934d742fd7186819e48ff9987d4c2c8a6c4ba6da572af72a125312d8b3786c8415162
+  checksum: 10c0/f7043e1be8f70d842b4df54e4f5d7087dd1f2c06cde2ed323366d008bd2d2fa98e7f57780ddb81a5a3a66bca82eb3bb03269b4f80032de6bf5a4d10bcc585fd8
   languageName: node
   linkType: hard
 

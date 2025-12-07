@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import type { Metadata } from "next";
 
+import ActionBar from "@/app/history/action-bar";
 import { TransactionList } from "@/app/history/transaction-list";
 import { getQueryClient } from "@/lib/get-query-client";
 import { PageProvider } from "@/providers/page-provider";
@@ -28,7 +29,8 @@ export default async function History() {
         <HydrationBoundary state={dehydrate(queryClient)}>
             <PageProvider
                 path="/history"
-                className="mb-0 h-full w-full overflow-hidden md:mb-0 lg:mb-0">
+                className="mb-0 h-full w-full space-y-3 overflow-hidden md:mb-0 lg:mb-0">
+                <ActionBar />
                 <article className="h-full w-full pl-0 xl:pl-32">
                     <TransactionList />
                 </article>

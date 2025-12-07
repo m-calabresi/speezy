@@ -52,7 +52,7 @@ export function TransactionItem({ item }: { item: Transaction }) {
             <CardContent className="grid grid-cols-[min-content_auto_min-content_min-content] grid-rows-[min-content_auto] items-start gap-x-4 gap-y-2">
                 <div
                     className={cn(
-                        "row-span-2 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border",
+                        "row-span-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border",
                         option.isPending === undefined && "bg-background dark:bg-card text-muted-foreground",
                         option.isPending !== undefined && option.isPending && "border-amber-100/20 text-amber-100",
                         option.isPending !== undefined && !option.isPending && "bg-background dark:bg-card text-muted-foreground/40",

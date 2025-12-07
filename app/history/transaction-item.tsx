@@ -19,7 +19,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { cn, formatCurrency, formatDate, formatTransaction } from "@/lib/utils";
 import { deleteTransaction } from "@/queries/transactions";
@@ -111,6 +111,7 @@ export function TransactionItem({ item }: { item: Transaction }) {
                         <DialogContent className="scrollbar-hidden max-h-screen overflow-y-auto sm:max-w-lg">
                             <DialogHeader>
                                 <DialogTitle className="text-center">Edit transaction</DialogTitle>
+                                <DialogDescription className="sr-only">Edit the selected transaction</DialogDescription>
                             </DialogHeader>
                             <EditTransactionForm
                                 item={item}

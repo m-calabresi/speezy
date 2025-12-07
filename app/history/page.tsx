@@ -9,7 +9,7 @@ import type { Paginated } from "@/types/pagination";
 import type { Transaction } from "@/types/transaction";
 
 export const metadata: Metadata = {
-    title: "Stats - speezy",
+    title: "History - speezy",
     description: "Your transaction history at a glance.",
     keywords: ["speezy", "history", "transactions", "expense", "tracking"],
 };

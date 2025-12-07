@@ -54,6 +54,7 @@
     - [ ] Check if prefetch actually work.
     - [ ] Check error handling if error is thrown in `getTransactions()`.
     - [ ] Fix description overflow in history.
+    - [ ] Fix input border cutout
 
 ## Commit SemVer
 

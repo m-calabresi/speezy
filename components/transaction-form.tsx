@@ -2,19 +2,19 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, CoinsIcon, EuroIcon, HandHelpingIcon, PlusIcon, ShoppingBagIcon } from "lucide-react";
-import type React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { currencyString } from "@/app/schemas/zod";
+import { CurrencyInput } from "@/components/inputs/currency-input";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { capitalize, formatCurrency, formatDate, formatTransaction, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS } from "@/lib/utils";
+import { capitalize, formatDate, formatTransaction } from "@/lib/utils";
 import { addTransaction } from "@/queries/transactions";
 import { transactionTypes, type Transaction, type TransactionOption } from "@/types/transaction";
 
@@ -46,36 +46,8 @@ const transactionOptions: TransactionOption[] = [
 ];
 
 const FormSchema = z.object({
-    transactionAt: z.date({
-        error: "Seleziona la data della transazione.",
-    }),
-    amount: z
-        .string()
-        .refine(
-            (val: string) => {
-                const normalized = val.replaceAll(".", "").replace(",", ".");
-                const parsed = parseFloat(normalized);
-
-                return !isNaN(parsed) && parsed >= 0;
-            },
-            {
-                error: "Inserisci un importo valido e positivo.",
-            },
-        )
-        .refine(
-            (val: string) => {
-                const normalized = val.replaceAll(".", "").replace(",", ".");
-                const [integer, decimal] = normalized.split(".") as [string, string | undefined];
-
-                const isIntegerValid = integer.length <= TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS;
-                const isDecimalValid = decimal ? decimal.length <= TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS : true;
-
-                return isIntegerValid && isDecimalValid;
-            },
-            {
-                error: "Inserisci un importo uguale o inferiore a €999.999.999,99.",
-            },
-        ),
+    transactionAt: z.date({ error: "Seleziona la data della transazione." }),
+    amount: currencyString,
     description: z.string().min(1, { error: "Inserisci una descrizione." }).max(1000, { error: "La descrizione non deve superare i 100 caratteri." }),
     type: z.enum(transactionTypes, { error: "Seleziona un tipo di transazione valido" }),
 });
@@ -116,33 +88,6 @@ export function TransactionForm() {
         }
     }
 
-    const handleInput = (e: React.FormEvent<HTMLInputElement>, onChange: (value: string) => void) => {
-        const input = e.target as HTMLInputElement;
-        const value = input.value;
-
-        // Remove any invalid characters (keep only digits and comma)
-        const cleaned = value.replace(/[^0-9,]/g, "");
-
-        const parts = cleaned.split(",");
-        let result = parts[0];
-
-        // truncate input to max allowed
-        if (result.length > TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS) {
-            result = result.substring(0, TRANSACTION_AMOUNT_MAX_INTEGER_DIGITS);
-        }
-
-        // Ensure only one comma
-        if (parts.length > 1) {
-            result += "," + parts[1].substring(0, TRANSACTION_AMOUNT_MAX_DECIMAL_DIGITS); // truncate to max decimal places
-        }
-
-        if (result !== value) {
-            input.value = result;
-            // Trigger form update
-            onChange(result);
-        }
-    };
-
     return (
         <Form {...form}>
             <form
@@ -182,30 +127,16 @@ export function TransactionForm() {
                 <FormField
                     control={form.control}
                     name="amount"
-                    render={({ field: { onChange, onBlur, ...field } }) => (
+                    render={({ field: { onChange, onBlur, value, ...field } }) => (
                         <FormItem className="md:col-start-1 md:row-start-2">
                             <FormLabel>Amount</FormLabel>
                             <FormControl>
-                                <div className="relative">
-                                    <Input
-                                        placeholder="0.00"
-                                        step="0.01"
-                                        inputMode="decimal"
-                                        type="text"
-                                        className="w-full ps-9"
-                                        onInput={(e) => handleInput(e, onChange)}
-                                        onChange={onChange}
-                                        onBlur={(e) => {
-                                            const raw = parseFloat(e.target.value.replace(/[^0-9,]/g, "").replace(",", "."));
-                                            const formatted = isNaN(raw) ? "" : formatCurrency(raw, { displayCurrencySign: false, displayCurrencySymbol: false });
-
-                                            onChange(formatted);
-                                            onBlur();
-                                        }}
-                                        {...field}
-                                    />
-                                    <EuroIcon className="text-muted-foreground absolute start-0 top-1/2 ms-3 h-4 w-4 -translate-y-1/2" />
-                                </div>
+                                <CurrencyInput
+                                    value={value ?? ""}
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    {...field}
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

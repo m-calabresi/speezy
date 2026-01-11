@@ -29,6 +29,7 @@
     - [ ] Add `stats` page
 - Auth
     - [x] Implement app auth with `auth.js`
+    - [ ] Add Keycloack session invalidation at signout
     - [ ] Deploy & configure Keycloak
 - Backend
     - [x] Implement DB connectivity

@@ -2618,12 +2618,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^25.3.4":
-  version: 25.3.4
-  resolution: "@types/node@npm:25.3.4"
+"@types/node@npm:^25.5.0":
+  version: 25.5.0
+  resolution: "@types/node@npm:25.5.0"
   dependencies:
     undici-types: "npm:~7.18.0"
-  checksum: 10c0/85957e8368d366022586dd10cbb8265a0d1e394d0c8ba21955b6c6c4538a33919fe1bc3560e49945102f897305460d23d686b5690726b8e0e0e075a1d1ae2e86
+  checksum: 10c0/70c508165b6758c4f88d4f91abca526c3985eee1985503d4c2bd994dbaf588e52ac57e571160f18f117d76e963570ac82bd20e743c18987e82564312b3b62119
   languageName: node
   linkType: hard
 
@@ -8099,7 +8099,7 @@ __metadata:
     "@radix-ui/react-toggle-group": "npm:^1.1.11"
     "@tailwindcss/postcss": "npm:^4.2.1"
     "@tanstack/react-query": "npm:^5.90.21"
-    "@types/node": "npm:^25.3.4"
+    "@types/node": "npm:^25.5.0"
     "@types/react": "npm:19.2.14"
     "@types/react-dom": "npm:19.2.3"
     babel-plugin-react-compiler: "npm:^1.0.0"

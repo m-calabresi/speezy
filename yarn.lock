@@ -2290,7 +2290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-toggle@npm:1.1.10, @radix-ui/react-toggle@npm:^1.1.10":
+"@radix-ui/react-toggle@npm:1.1.10":
   version: 1.1.10
   resolution: "@radix-ui/react-toggle@npm:1.1.10"
   dependencies:
@@ -2308,6 +2308,27 @@ __metadata:
     "@types/react-dom":
       optional: true
   checksum: 10c0/5406cdf5dd7299ae6cfdb4865dc5fd43ca3c475ebcd4e86830bd296d734255b61f749c9bde452ebfaad126033f92dd1112ee9d95982344ffad34491238dcc9b1
+  languageName: node
+  linkType: hard
+
+"@radix-ui/react-toggle@npm:^1.1.11":
+  version: 1.1.11
+  resolution: "@radix-ui/react-toggle@npm:1.1.11"
+  dependencies:
+    "@radix-ui/primitive": "npm:1.1.4"
+    "@radix-ui/react-primitive": "npm:2.1.5"
+    "@radix-ui/react-use-controllable-state": "npm:1.2.3"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 10c0/188954040e7edb827662f671f20aeecfedba01ac4785bac940b29ff3f13a7ce93dcbc9ab1edd4f09302e72db1f7b9911d790a6e13ab9aab7b8c1b6a0fe255d0b
   languageName: node
   linkType: hard
 
@@ -8472,7 +8493,7 @@ __metadata:
     "@radix-ui/react-label": "npm:^2.1.8"
     "@radix-ui/react-popover": "npm:^1.1.15"
     "@radix-ui/react-slot": "npm:^1.2.4"
-    "@radix-ui/react-toggle": "npm:^1.1.10"
+    "@radix-ui/react-toggle": "npm:^1.1.11"
     "@radix-ui/react-toggle-group": "npm:^1.1.11"
     "@tailwindcss/postcss": "npm:^4.3.0"
     "@tanstack/react-query": "npm:^5.101.0"

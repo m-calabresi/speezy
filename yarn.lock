@@ -2202,7 +2202,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:1.2.5, @radix-ui/react-slot@npm:^1.2.5":
+"@radix-ui/react-slot@npm:1.2.5":
   version: 1.2.5
   resolution: "@radix-ui/react-slot@npm:1.2.5"
   dependencies:
@@ -2217,7 +2217,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:1.3.0":
+"@radix-ui/react-slot@npm:1.3.0, @radix-ui/react-slot@npm:^1.3.0":
   version: 1.3.0
   resolution: "@radix-ui/react-slot@npm:1.3.0"
   dependencies:
@@ -8363,7 +8363,7 @@ __metadata:
     "@radix-ui/react-dropdown-menu": "npm:^2.1.17"
     "@radix-ui/react-label": "npm:^2.1.10"
     "@radix-ui/react-popover": "npm:^1.1.17"
-    "@radix-ui/react-slot": "npm:^1.2.5"
+    "@radix-ui/react-slot": "npm:^1.3.0"
     "@radix-ui/react-toggle": "npm:^1.1.12"
     "@radix-ui/react-toggle-group": "npm:^1.1.13"
     "@tailwindcss/postcss": "npm:^4.3.1"

@@ -1578,12 +1578,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-avatar@npm:^1.1.12":
-  version: 1.1.12
-  resolution: "@radix-ui/react-avatar@npm:1.1.12"
+"@radix-ui/react-avatar@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@radix-ui/react-avatar@npm:1.2.0"
   dependencies:
     "@radix-ui/react-context": "npm:1.1.4"
-    "@radix-ui/react-primitive": "npm:2.1.5"
+    "@radix-ui/react-primitive": "npm:2.1.6"
     "@radix-ui/react-use-callback-ref": "npm:1.1.2"
     "@radix-ui/react-use-is-hydrated": "npm:0.1.1"
     "@radix-ui/react-use-layout-effect": "npm:1.1.2"
@@ -1597,7 +1597,7 @@ __metadata:
       optional: true
     "@types/react-dom":
       optional: true
-  checksum: 10c0/7bfb81421ae46ebeaa494fe1d11585e2b8089052e7293e6e4b8f7a8e1e5b16a0595f58bd8576df00ddbcac87c0343621ed1c15ca5d3f1f4d737b6dc1a2756877
+  checksum: 10c0/5a6782293c23a36197df857ca74ec67975d846784410ef1b06c0edeb06c3cbeabadae0f801699b85e44bfad342d2124173e86c56a5701e495f36a507cd2dbf26
   languageName: node
   linkType: hard
 
@@ -8167,7 +8167,7 @@ __metadata:
   dependencies:
     "@hookform/resolvers": "npm:^5.4.0"
     "@radix-ui/react-alert-dialog": "npm:^1.1.16"
-    "@radix-ui/react-avatar": "npm:^1.1.12"
+    "@radix-ui/react-avatar": "npm:^1.2.0"
     "@radix-ui/react-dialog": "npm:^1.1.16"
     "@radix-ui/react-dropdown-menu": "npm:^2.1.17"
     "@radix-ui/react-label": "npm:^2.1.10"

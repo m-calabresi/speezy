@@ -1577,6 +1577,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-arrow@npm:1.1.11":
+  version: 1.1.11
+  resolution: "@radix-ui/react-arrow@npm:1.1.11"
+  dependencies:
+    "@radix-ui/react-primitive": "npm:2.1.7"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 10c0/d8db1fc66022057fbdb02f4a20c747706f9b9dc7e6966bd83a0c7d1aa81f27cbcfa48deb9bd86c2714f16d9c813868240bb584473e3344beb436ce4e03f6bbaf
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-avatar@npm:^1.2.1":
   version: 1.2.1
   resolution: "@radix-ui/react-avatar@npm:1.2.1"
@@ -1943,21 +1962,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-popover@npm:^1.1.17":
-  version: 1.1.17
-  resolution: "@radix-ui/react-popover@npm:1.1.17"
+"@radix-ui/react-popover@npm:^1.1.18":
+  version: 1.1.18
+  resolution: "@radix-ui/react-popover@npm:1.1.18"
   dependencies:
     "@radix-ui/primitive": "npm:1.1.4"
     "@radix-ui/react-compose-refs": "npm:1.1.3"
     "@radix-ui/react-context": "npm:1.1.4"
-    "@radix-ui/react-dismissable-layer": "npm:1.1.13"
+    "@radix-ui/react-dismissable-layer": "npm:1.1.14"
     "@radix-ui/react-focus-guards": "npm:1.1.4"
-    "@radix-ui/react-focus-scope": "npm:1.1.10"
+    "@radix-ui/react-focus-scope": "npm:1.1.11"
     "@radix-ui/react-id": "npm:1.1.2"
-    "@radix-ui/react-popper": "npm:1.3.1"
-    "@radix-ui/react-portal": "npm:1.1.12"
+    "@radix-ui/react-popper": "npm:1.3.2"
+    "@radix-ui/react-portal": "npm:1.1.13"
     "@radix-ui/react-presence": "npm:1.1.6"
-    "@radix-ui/react-primitive": "npm:2.1.6"
+    "@radix-ui/react-primitive": "npm:2.1.7"
     "@radix-ui/react-slot": "npm:1.3.0"
     "@radix-ui/react-use-controllable-state": "npm:1.2.3"
     aria-hidden: "npm:^1.2.4"
@@ -1972,7 +1991,7 @@ __metadata:
       optional: true
     "@types/react-dom":
       optional: true
-  checksum: 10c0/8caf17d3788d0ec0639c7418a5c4ee822edc9eab31171f8531bf1c94b4c9d998e4e3ecb983010e9479678a9769defa2946a7dea17881d93465fd1ef11dda13cf
+  checksum: 10c0/abcabc6ee2166a4729ea8698df65881fe18ddc279df967348400556257ba4d9dcd56efe61e1d447c9684319baacf61ff91005995c22d59f05f8d3553b177132c
   languageName: node
   linkType: hard
 
@@ -2001,6 +2020,34 @@ __metadata:
     "@types/react-dom":
       optional: true
   checksum: 10c0/1ec118d66d437835a771ef166b2847931fbe02ded0dd342aa2a5b04643cd001a036f74a7924a2f357ac602e01b1ad3cc4e2c1b8a2bd24ca8417621cf9e56fb1d
+  languageName: node
+  linkType: hard
+
+"@radix-ui/react-popper@npm:1.3.2":
+  version: 1.3.2
+  resolution: "@radix-ui/react-popper@npm:1.3.2"
+  dependencies:
+    "@floating-ui/react-dom": "npm:^2.0.0"
+    "@radix-ui/react-arrow": "npm:1.1.11"
+    "@radix-ui/react-compose-refs": "npm:1.1.3"
+    "@radix-ui/react-context": "npm:1.1.4"
+    "@radix-ui/react-primitive": "npm:2.1.7"
+    "@radix-ui/react-use-callback-ref": "npm:1.1.2"
+    "@radix-ui/react-use-layout-effect": "npm:1.1.2"
+    "@radix-ui/react-use-rect": "npm:1.1.2"
+    "@radix-ui/react-use-size": "npm:1.1.2"
+    "@radix-ui/rect": "npm:1.1.2"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 10c0/84d6ed24c0fe36acecd09b7b8c3343eaa2bdc7500cf28dec18c8236d4ebb12d7df48df2b866232bd035ccbc42be57fff1144454ae9cab6a6a3a75b073e9d022d
   languageName: node
   linkType: hard
 
@@ -8300,7 +8347,7 @@ __metadata:
     "@radix-ui/react-dialog": "npm:^1.1.18"
     "@radix-ui/react-dropdown-menu": "npm:^2.1.18"
     "@radix-ui/react-label": "npm:^2.1.11"
-    "@radix-ui/react-popover": "npm:^1.1.17"
+    "@radix-ui/react-popover": "npm:^1.1.18"
     "@radix-ui/react-slot": "npm:^1.3.0"
     "@radix-ui/react-toggle": "npm:^1.1.13"
     "@radix-ui/react-toggle-group": "npm:^1.1.14"

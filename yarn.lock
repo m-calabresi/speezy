@@ -1577,11 +1577,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-avatar@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@radix-ui/react-avatar@npm:1.2.1"
+"@radix-ui/react-avatar@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@radix-ui/react-avatar@npm:1.2.2"
   dependencies:
-    "@radix-ui/react-context": "npm:1.1.4"
+    "@radix-ui/react-context": "npm:1.2.0"
     "@radix-ui/react-primitive": "npm:2.1.7"
     "@radix-ui/react-use-callback-ref": "npm:1.1.2"
     "@radix-ui/react-use-is-hydrated": "npm:0.1.1"
@@ -1596,7 +1596,7 @@ __metadata:
       optional: true
     "@types/react-dom":
       optional: true
-  checksum: 10c0/e45fc7c6c3728775cc7926ee4597248bb68c1bcb8d901e814aa7f574312a35e75a1a29e1f3afc3d38396374438ec83ee3d5fd523b08c2fc18160feb5cff9d17f
+  checksum: 10c0/cfe6b679ffce8eda3f19964b62ba4510de237d8d4b6f5ee8a1f86dd8cfe3f733633a3973d0b9cb6745a9722b8198e7bbcbc2555d32f553c278e0b67bbcd6a209
   languageName: node
   linkType: hard
 
@@ -1645,6 +1645,19 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/917be4dcb9fd9f465ab18f6982879daf83a5ca298a22504fa3bc4abd8dea963a57abb9ad38c099dd756ba2cddff0edde680bf8369012f44dedede20912702c8f
+  languageName: node
+  linkType: hard
+
+"@radix-ui/react-context@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@radix-ui/react-context@npm:1.2.0"
+  peerDependencies:
+    "@types/react": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/54079fc32fd5b20434bb5d1447f318f914cab5c15b76e984df7b5787476a38460a6e0a04cbcdca847813060fa16f76eb1087b048c9ad461418642e2db4bbe075
   languageName: node
   linkType: hard
 
@@ -8117,7 +8130,7 @@ __metadata:
   dependencies:
     "@hookform/resolvers": "npm:^5.4.0"
     "@radix-ui/react-alert-dialog": "npm:^1.1.18"
-    "@radix-ui/react-avatar": "npm:^1.2.1"
+    "@radix-ui/react-avatar": "npm:^1.2.2"
     "@radix-ui/react-dialog": "npm:^1.1.18"
     "@radix-ui/react-dropdown-menu": "npm:^2.1.19"
     "@radix-ui/react-label": "npm:^2.1.11"

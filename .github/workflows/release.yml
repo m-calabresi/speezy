@@ -55,7 +55,7 @@ jobs:
 
       - name: Generate Changelog
         id: changelog
-        uses: ardalanamini/auto-changelog@v4
+        uses: ardalanamini/auto-changelog@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           default-commit-type: Other Changes

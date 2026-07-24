@@ -1873,11 +1873,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-label@npm:^2.1.11":
-  version: 2.1.11
-  resolution: "@radix-ui/react-label@npm:2.1.11"
+"@radix-ui/react-label@npm:^2.1.13":
+  version: 2.1.13
+  resolution: "@radix-ui/react-label@npm:2.1.13"
   dependencies:
-    "@radix-ui/react-primitive": "npm:2.1.7"
+    "@radix-ui/react-primitive": "npm:2.1.8"
   peerDependencies:
     "@types/react": "*"
     "@types/react-dom": "*"
@@ -1888,7 +1888,7 @@ __metadata:
       optional: true
     "@types/react-dom":
       optional: true
-  checksum: 10c0/52260c0562ce78425ad715bca7fa7c17fab19883b071be177e97f6da4c8f7bd2974d4700821b8f0d299023df79796274790f619a4fa5e6c8f8f5e669ffd863cd
+  checksum: 10c0/946cd5aa5d0ed9e0b182e00a21f22f7206a7fe79341969800135b5138fbf57c977b5743948ecf53d82f1951233cb907b195dc7aa44289f4ba30c4ea0bf3d8b55
   languageName: node
   linkType: hard
 
@@ -8361,7 +8361,7 @@ __metadata:
     "@radix-ui/react-avatar": "npm:^1.2.2"
     "@radix-ui/react-dialog": "npm:^1.1.19"
     "@radix-ui/react-dropdown-menu": "npm:^2.1.20"
-    "@radix-ui/react-label": "npm:^2.1.11"
+    "@radix-ui/react-label": "npm:^2.1.13"
     "@radix-ui/react-popover": "npm:^1.1.19"
     "@radix-ui/react-slot": "npm:^1.3.0"
     "@radix-ui/react-toggle": "npm:^1.1.14"

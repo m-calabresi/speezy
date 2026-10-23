@@ -6613,12 +6613,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.577.0":
-  version: 0.577.0
-  resolution: "lucide-react@npm:0.577.0"
+"lucide-react@npm:^1.59.0":
+  version: 1.59.0
+  resolution: "lucide-react@npm:1.59.0"
   peerDependencies:
+    "@types/react": "*"
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/f5f56d66d5072b69ab74af2196833e35b888c18d92906d75aff81afc0aeabf00a4092a5b9dbc1bddd250bf54ec3c5d5933c7353589b5cb7efd75b21651cda399
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/e02dbdda8a9689527988ffb8ed7f01675755146ee7abfebbbe46b843fbc477f23dc0a4524fe257d0daa3d8eb3289a46f8bdce4a1dcbbdeeab5d158bfa68842c4
   languageName: node
   linkType: hard
 
@@ -8494,7 +8498,7 @@ __metadata:
     eslint: "npm:^9.39.2"
     eslint-config-next: "npm:16.4.2"
     jwt-decode: "npm:^4.0.0"
-    lucide-react: "npm:^0.577.0"
+    lucide-react: "npm:^1.59.0"
     next: "npm:^16.4.2"
     next-auth: "npm:^5.0.0-beta.32"
     next-themes: "npm:^0.4.6"
